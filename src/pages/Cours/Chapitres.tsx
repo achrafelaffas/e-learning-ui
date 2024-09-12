@@ -21,6 +21,9 @@ export const Chapitres: React.FC<ChapitresProps> = ({
   selectedChapitre,
   setSelectedChapitre,
 }) => {
+
+  
+
   const chapitres = [1, 2, 3, 4];
   const qcm = 5;
 

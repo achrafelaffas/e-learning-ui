@@ -603,10 +603,10 @@ export class AuthRestApi extends BaseAPI {
 
 
 /**
- * ChapitreRestApiApi - axios parameter creator
+ * ChapitreRestApi - axios parameter creator
  * @export
  */
-export const ChapitreRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ChapitreRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -801,11 +801,11 @@ export const ChapitreRestApiApiAxiosParamCreator = function (configuration?: Con
 };
 
 /**
- * ChapitreRestApiApi - functional programming interface
+ * ChapitreRestApi - functional programming interface
  * @export
  */
-export const ChapitreRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ChapitreRestApiApiAxiosParamCreator(configuration)
+export const ChapitreRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ChapitreRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -816,7 +816,7 @@ export const ChapitreRestApiApiFp = function(configuration?: Configuration) {
         async createChapitre(chapitreDTO: ChapitreDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChapitreDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createChapitre(chapitreDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApiApi.createChapitre']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.createChapitre']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -828,7 +828,7 @@ export const ChapitreRestApiApiFp = function(configuration?: Configuration) {
         async deleteChapitre(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteChapitre(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApiApi.deleteChapitre']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.deleteChapitre']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -839,7 +839,7 @@ export const ChapitreRestApiApiFp = function(configuration?: Configuration) {
         async getAllChapitres(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ChapitreDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllChapitres(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApiApi.getAllChapitres']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.getAllChapitres']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -851,7 +851,7 @@ export const ChapitreRestApiApiFp = function(configuration?: Configuration) {
         async getChapitreById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChapitreDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getChapitreById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApiApi.getChapitreById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.getChapitreById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -864,18 +864,18 @@ export const ChapitreRestApiApiFp = function(configuration?: Configuration) {
         async updateChapitre(id: number, chapitreDTO: ChapitreDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChapitreDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateChapitre(id, chapitreDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApiApi.updateChapitre']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.updateChapitre']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * ChapitreRestApiApi - factory interface
+ * ChapitreRestApi - factory interface
  * @export
  */
-export const ChapitreRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ChapitreRestApiApiFp(configuration)
+export const ChapitreRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ChapitreRestApiFp(configuration)
     return {
         /**
          * 
@@ -926,21 +926,21 @@ export const ChapitreRestApiApiFactory = function (configuration?: Configuration
 };
 
 /**
- * ChapitreRestApiApi - object-oriented interface
+ * ChapitreRestApi - object-oriented interface
  * @export
- * @class ChapitreRestApiApi
+ * @class ChapitreRestApi
  * @extends {BaseAPI}
  */
-export class ChapitreRestApiApi extends BaseAPI {
+export class ChapitreRestApi extends BaseAPI {
     /**
      * 
      * @param {ChapitreDTO} chapitreDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ChapitreRestApiApi
+     * @memberof ChapitreRestApi
      */
     public createChapitre(chapitreDTO: ChapitreDTO, options?: RawAxiosRequestConfig) {
-        return ChapitreRestApiApiFp(this.configuration).createChapitre(chapitreDTO, options).then((request) => request(this.axios, this.basePath));
+        return ChapitreRestApiFp(this.configuration).createChapitre(chapitreDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -948,20 +948,20 @@ export class ChapitreRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ChapitreRestApiApi
+     * @memberof ChapitreRestApi
      */
     public deleteChapitre(id: number, options?: RawAxiosRequestConfig) {
-        return ChapitreRestApiApiFp(this.configuration).deleteChapitre(id, options).then((request) => request(this.axios, this.basePath));
+        return ChapitreRestApiFp(this.configuration).deleteChapitre(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ChapitreRestApiApi
+     * @memberof ChapitreRestApi
      */
     public getAllChapitres(options?: RawAxiosRequestConfig) {
-        return ChapitreRestApiApiFp(this.configuration).getAllChapitres(options).then((request) => request(this.axios, this.basePath));
+        return ChapitreRestApiFp(this.configuration).getAllChapitres(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -969,10 +969,10 @@ export class ChapitreRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ChapitreRestApiApi
+     * @memberof ChapitreRestApi
      */
     public getChapitreById(id: number, options?: RawAxiosRequestConfig) {
-        return ChapitreRestApiApiFp(this.configuration).getChapitreById(id, options).then((request) => request(this.axios, this.basePath));
+        return ChapitreRestApiFp(this.configuration).getChapitreById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -981,20 +981,20 @@ export class ChapitreRestApiApi extends BaseAPI {
      * @param {ChapitreDTO} chapitreDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ChapitreRestApiApi
+     * @memberof ChapitreRestApi
      */
     public updateChapitre(id: number, chapitreDTO: ChapitreDTO, options?: RawAxiosRequestConfig) {
-        return ChapitreRestApiApiFp(this.configuration).updateChapitre(id, chapitreDTO, options).then((request) => request(this.axios, this.basePath));
+        return ChapitreRestApiFp(this.configuration).updateChapitre(id, chapitreDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * CoursRestApiApi - axios parameter creator
+ * CoursRestApi - axios parameter creator
  * @export
  */
-export const CoursRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CoursRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -1189,11 +1189,11 @@ export const CoursRestApiApiAxiosParamCreator = function (configuration?: Config
 };
 
 /**
- * CoursRestApiApi - functional programming interface
+ * CoursRestApi - functional programming interface
  * @export
  */
-export const CoursRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CoursRestApiApiAxiosParamCreator(configuration)
+export const CoursRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CoursRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -1204,7 +1204,7 @@ export const CoursRestApiApiFp = function(configuration?: Configuration) {
         async createCours(coursDTO: CoursDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CoursDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createCours(coursDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CoursRestApiApi.createCours']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['CoursRestApi.createCours']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1216,7 +1216,7 @@ export const CoursRestApiApiFp = function(configuration?: Configuration) {
         async deleteCours(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCours(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CoursRestApiApi.deleteCours']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['CoursRestApi.deleteCours']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1227,7 +1227,7 @@ export const CoursRestApiApiFp = function(configuration?: Configuration) {
         async getAllCours(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CoursDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllCours(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CoursRestApiApi.getAllCours']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['CoursRestApi.getAllCours']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1239,7 +1239,7 @@ export const CoursRestApiApiFp = function(configuration?: Configuration) {
         async getCoursById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CoursDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCoursById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CoursRestApiApi.getCoursById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['CoursRestApi.getCoursById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1252,18 +1252,18 @@ export const CoursRestApiApiFp = function(configuration?: Configuration) {
         async updateCours(id: number, coursDTO: CoursDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CoursDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateCours(id, coursDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['CoursRestApiApi.updateCours']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['CoursRestApi.updateCours']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * CoursRestApiApi - factory interface
+ * CoursRestApi - factory interface
  * @export
  */
-export const CoursRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CoursRestApiApiFp(configuration)
+export const CoursRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CoursRestApiFp(configuration)
     return {
         /**
          * 
@@ -1314,21 +1314,21 @@ export const CoursRestApiApiFactory = function (configuration?: Configuration, b
 };
 
 /**
- * CoursRestApiApi - object-oriented interface
+ * CoursRestApi - object-oriented interface
  * @export
- * @class CoursRestApiApi
+ * @class CoursRestApi
  * @extends {BaseAPI}
  */
-export class CoursRestApiApi extends BaseAPI {
+export class CoursRestApi extends BaseAPI {
     /**
      * 
      * @param {CoursDTO} coursDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CoursRestApiApi
+     * @memberof CoursRestApi
      */
     public createCours(coursDTO: CoursDTO, options?: RawAxiosRequestConfig) {
-        return CoursRestApiApiFp(this.configuration).createCours(coursDTO, options).then((request) => request(this.axios, this.basePath));
+        return CoursRestApiFp(this.configuration).createCours(coursDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1336,20 +1336,20 @@ export class CoursRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CoursRestApiApi
+     * @memberof CoursRestApi
      */
     public deleteCours(id: number, options?: RawAxiosRequestConfig) {
-        return CoursRestApiApiFp(this.configuration).deleteCours(id, options).then((request) => request(this.axios, this.basePath));
+        return CoursRestApiFp(this.configuration).deleteCours(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CoursRestApiApi
+     * @memberof CoursRestApi
      */
     public getAllCours(options?: RawAxiosRequestConfig) {
-        return CoursRestApiApiFp(this.configuration).getAllCours(options).then((request) => request(this.axios, this.basePath));
+        return CoursRestApiFp(this.configuration).getAllCours(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1357,10 +1357,10 @@ export class CoursRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CoursRestApiApi
+     * @memberof CoursRestApi
      */
     public getCoursById(id: number, options?: RawAxiosRequestConfig) {
-        return CoursRestApiApiFp(this.configuration).getCoursById(id, options).then((request) => request(this.axios, this.basePath));
+        return CoursRestApiFp(this.configuration).getCoursById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1369,20 +1369,20 @@ export class CoursRestApiApi extends BaseAPI {
      * @param {CoursDTO} coursDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CoursRestApiApi
+     * @memberof CoursRestApi
      */
     public updateCours(id: number, coursDTO: CoursDTO, options?: RawAxiosRequestConfig) {
-        return CoursRestApiApiFp(this.configuration).updateCours(id, coursDTO, options).then((request) => request(this.axios, this.basePath));
+        return CoursRestApiFp(this.configuration).updateCours(id, coursDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * MatiereRestApiApi - axios parameter creator
+ * MatiereRestApi - axios parameter creator
  * @export
  */
-export const MatiereRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const MatiereRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -1577,11 +1577,11 @@ export const MatiereRestApiApiAxiosParamCreator = function (configuration?: Conf
 };
 
 /**
- * MatiereRestApiApi - functional programming interface
+ * MatiereRestApi - functional programming interface
  * @export
  */
-export const MatiereRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = MatiereRestApiApiAxiosParamCreator(configuration)
+export const MatiereRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MatiereRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -1592,7 +1592,7 @@ export const MatiereRestApiApiFp = function(configuration?: Configuration) {
         async createMatiere(matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MatiereDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createMatiere(matiereDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MatiereRestApiApi.createMatiere']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.createMatiere']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1604,7 +1604,7 @@ export const MatiereRestApiApiFp = function(configuration?: Configuration) {
         async deleteMatiere(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteMatiere(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MatiereRestApiApi.deleteMatiere']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.deleteMatiere']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1615,7 +1615,7 @@ export const MatiereRestApiApiFp = function(configuration?: Configuration) {
         async getAllMatieres(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MatiereDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllMatieres(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MatiereRestApiApi.getAllMatieres']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.getAllMatieres']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1627,7 +1627,7 @@ export const MatiereRestApiApiFp = function(configuration?: Configuration) {
         async getMatiereById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MatiereDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMatiereById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MatiereRestApiApi.getMatiereById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.getMatiereById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1640,18 +1640,18 @@ export const MatiereRestApiApiFp = function(configuration?: Configuration) {
         async updateMatiere(id: number, matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MatiereDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateMatiere(id, matiereDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MatiereRestApiApi.updateMatiere']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.updateMatiere']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * MatiereRestApiApi - factory interface
+ * MatiereRestApi - factory interface
  * @export
  */
-export const MatiereRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = MatiereRestApiApiFp(configuration)
+export const MatiereRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MatiereRestApiFp(configuration)
     return {
         /**
          * 
@@ -1702,21 +1702,21 @@ export const MatiereRestApiApiFactory = function (configuration?: Configuration,
 };
 
 /**
- * MatiereRestApiApi - object-oriented interface
+ * MatiereRestApi - object-oriented interface
  * @export
- * @class MatiereRestApiApi
+ * @class MatiereRestApi
  * @extends {BaseAPI}
  */
-export class MatiereRestApiApi extends BaseAPI {
+export class MatiereRestApi extends BaseAPI {
     /**
      * 
      * @param {MatiereDTO} matiereDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof MatiereRestApiApi
+     * @memberof MatiereRestApi
      */
     public createMatiere(matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig) {
-        return MatiereRestApiApiFp(this.configuration).createMatiere(matiereDTO, options).then((request) => request(this.axios, this.basePath));
+        return MatiereRestApiFp(this.configuration).createMatiere(matiereDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1724,20 +1724,20 @@ export class MatiereRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof MatiereRestApiApi
+     * @memberof MatiereRestApi
      */
     public deleteMatiere(id: number, options?: RawAxiosRequestConfig) {
-        return MatiereRestApiApiFp(this.configuration).deleteMatiere(id, options).then((request) => request(this.axios, this.basePath));
+        return MatiereRestApiFp(this.configuration).deleteMatiere(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof MatiereRestApiApi
+     * @memberof MatiereRestApi
      */
     public getAllMatieres(options?: RawAxiosRequestConfig) {
-        return MatiereRestApiApiFp(this.configuration).getAllMatieres(options).then((request) => request(this.axios, this.basePath));
+        return MatiereRestApiFp(this.configuration).getAllMatieres(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1745,10 +1745,10 @@ export class MatiereRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof MatiereRestApiApi
+     * @memberof MatiereRestApi
      */
     public getMatiereById(id: number, options?: RawAxiosRequestConfig) {
-        return MatiereRestApiApiFp(this.configuration).getMatiereById(id, options).then((request) => request(this.axios, this.basePath));
+        return MatiereRestApiFp(this.configuration).getMatiereById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1757,20 +1757,20 @@ export class MatiereRestApiApi extends BaseAPI {
      * @param {MatiereDTO} matiereDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof MatiereRestApiApi
+     * @memberof MatiereRestApi
      */
     public updateMatiere(id: number, matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig) {
-        return MatiereRestApiApiFp(this.configuration).updateMatiere(id, matiereDTO, options).then((request) => request(this.axios, this.basePath));
+        return MatiereRestApiFp(this.configuration).updateMatiere(id, matiereDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * ProgressRestApiApi - axios parameter creator
+ * ProgressRestApi - axios parameter creator
  * @export
  */
-export const ProgressRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ProgressRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -1965,11 +1965,11 @@ export const ProgressRestApiApiAxiosParamCreator = function (configuration?: Con
 };
 
 /**
- * ProgressRestApiApi - functional programming interface
+ * ProgressRestApi - functional programming interface
  * @export
  */
-export const ProgressRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ProgressRestApiApiAxiosParamCreator(configuration)
+export const ProgressRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProgressRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -1980,7 +1980,7 @@ export const ProgressRestApiApiFp = function(configuration?: Configuration) {
         async createProgress(progressDTO: ProgressDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProgressDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createProgress(progressDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ProgressRestApiApi.createProgress']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ProgressRestApi.createProgress']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1992,7 +1992,7 @@ export const ProgressRestApiApiFp = function(configuration?: Configuration) {
         async deleteProgress(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProgress(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ProgressRestApiApi.deleteProgress']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ProgressRestApi.deleteProgress']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2003,7 +2003,7 @@ export const ProgressRestApiApiFp = function(configuration?: Configuration) {
         async getAllProgresss(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProgressDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProgresss(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ProgressRestApiApi.getAllProgresss']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ProgressRestApi.getAllProgresss']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2015,7 +2015,7 @@ export const ProgressRestApiApiFp = function(configuration?: Configuration) {
         async getProgressById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProgressDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProgressById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ProgressRestApiApi.getProgressById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ProgressRestApi.getProgressById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2028,18 +2028,18 @@ export const ProgressRestApiApiFp = function(configuration?: Configuration) {
         async updateProgress(id: number, progressDTO: ProgressDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProgressDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateProgress(id, progressDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ProgressRestApiApi.updateProgress']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ProgressRestApi.updateProgress']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * ProgressRestApiApi - factory interface
+ * ProgressRestApi - factory interface
  * @export
  */
-export const ProgressRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ProgressRestApiApiFp(configuration)
+export const ProgressRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProgressRestApiFp(configuration)
     return {
         /**
          * 
@@ -2090,21 +2090,21 @@ export const ProgressRestApiApiFactory = function (configuration?: Configuration
 };
 
 /**
- * ProgressRestApiApi - object-oriented interface
+ * ProgressRestApi - object-oriented interface
  * @export
- * @class ProgressRestApiApi
+ * @class ProgressRestApi
  * @extends {BaseAPI}
  */
-export class ProgressRestApiApi extends BaseAPI {
+export class ProgressRestApi extends BaseAPI {
     /**
      * 
      * @param {ProgressDTO} progressDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProgressRestApiApi
+     * @memberof ProgressRestApi
      */
     public createProgress(progressDTO: ProgressDTO, options?: RawAxiosRequestConfig) {
-        return ProgressRestApiApiFp(this.configuration).createProgress(progressDTO, options).then((request) => request(this.axios, this.basePath));
+        return ProgressRestApiFp(this.configuration).createProgress(progressDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2112,20 +2112,20 @@ export class ProgressRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProgressRestApiApi
+     * @memberof ProgressRestApi
      */
     public deleteProgress(id: number, options?: RawAxiosRequestConfig) {
-        return ProgressRestApiApiFp(this.configuration).deleteProgress(id, options).then((request) => request(this.axios, this.basePath));
+        return ProgressRestApiFp(this.configuration).deleteProgress(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProgressRestApiApi
+     * @memberof ProgressRestApi
      */
     public getAllProgresss(options?: RawAxiosRequestConfig) {
-        return ProgressRestApiApiFp(this.configuration).getAllProgresss(options).then((request) => request(this.axios, this.basePath));
+        return ProgressRestApiFp(this.configuration).getAllProgresss(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2133,10 +2133,10 @@ export class ProgressRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProgressRestApiApi
+     * @memberof ProgressRestApi
      */
     public getProgressById(id: number, options?: RawAxiosRequestConfig) {
-        return ProgressRestApiApiFp(this.configuration).getProgressById(id, options).then((request) => request(this.axios, this.basePath));
+        return ProgressRestApiFp(this.configuration).getProgressById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2145,20 +2145,20 @@ export class ProgressRestApiApi extends BaseAPI {
      * @param {ProgressDTO} progressDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ProgressRestApiApi
+     * @memberof ProgressRestApi
      */
     public updateProgress(id: number, progressDTO: ProgressDTO, options?: RawAxiosRequestConfig) {
-        return ProgressRestApiApiFp(this.configuration).updateProgress(id, progressDTO, options).then((request) => request(this.axios, this.basePath));
+        return ProgressRestApiFp(this.configuration).updateProgress(id, progressDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * QuestionRestApiApi - axios parameter creator
+ * QuestionRestApi - axios parameter creator
  * @export
  */
-export const QuestionRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const QuestionRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -2353,11 +2353,11 @@ export const QuestionRestApiApiAxiosParamCreator = function (configuration?: Con
 };
 
 /**
- * QuestionRestApiApi - functional programming interface
+ * QuestionRestApi - functional programming interface
  * @export
  */
-export const QuestionRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = QuestionRestApiApiAxiosParamCreator(configuration)
+export const QuestionRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = QuestionRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -2368,7 +2368,7 @@ export const QuestionRestApiApiFp = function(configuration?: Configuration) {
         async createQuestion(questionDTO: QuestionDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createQuestion(questionDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuestionRestApiApi.createQuestion']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.createQuestion']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2380,7 +2380,7 @@ export const QuestionRestApiApiFp = function(configuration?: Configuration) {
         async deleteQuestion(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteQuestion(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuestionRestApiApi.deleteQuestion']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.deleteQuestion']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2391,7 +2391,7 @@ export const QuestionRestApiApiFp = function(configuration?: Configuration) {
         async getAllQuestions(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<QuestionDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllQuestions(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuestionRestApiApi.getAllQuestions']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.getAllQuestions']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2403,7 +2403,7 @@ export const QuestionRestApiApiFp = function(configuration?: Configuration) {
         async getQuestionById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getQuestionById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuestionRestApiApi.getQuestionById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.getQuestionById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2416,18 +2416,18 @@ export const QuestionRestApiApiFp = function(configuration?: Configuration) {
         async updateQuestion(id: number, questionDTO: QuestionDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateQuestion(id, questionDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuestionRestApiApi.updateQuestion']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.updateQuestion']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * QuestionRestApiApi - factory interface
+ * QuestionRestApi - factory interface
  * @export
  */
-export const QuestionRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = QuestionRestApiApiFp(configuration)
+export const QuestionRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = QuestionRestApiFp(configuration)
     return {
         /**
          * 
@@ -2478,21 +2478,21 @@ export const QuestionRestApiApiFactory = function (configuration?: Configuration
 };
 
 /**
- * QuestionRestApiApi - object-oriented interface
+ * QuestionRestApi - object-oriented interface
  * @export
- * @class QuestionRestApiApi
+ * @class QuestionRestApi
  * @extends {BaseAPI}
  */
-export class QuestionRestApiApi extends BaseAPI {
+export class QuestionRestApi extends BaseAPI {
     /**
      * 
      * @param {QuestionDTO} questionDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuestionRestApiApi
+     * @memberof QuestionRestApi
      */
     public createQuestion(questionDTO: QuestionDTO, options?: RawAxiosRequestConfig) {
-        return QuestionRestApiApiFp(this.configuration).createQuestion(questionDTO, options).then((request) => request(this.axios, this.basePath));
+        return QuestionRestApiFp(this.configuration).createQuestion(questionDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2500,20 +2500,20 @@ export class QuestionRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuestionRestApiApi
+     * @memberof QuestionRestApi
      */
     public deleteQuestion(id: number, options?: RawAxiosRequestConfig) {
-        return QuestionRestApiApiFp(this.configuration).deleteQuestion(id, options).then((request) => request(this.axios, this.basePath));
+        return QuestionRestApiFp(this.configuration).deleteQuestion(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuestionRestApiApi
+     * @memberof QuestionRestApi
      */
     public getAllQuestions(options?: RawAxiosRequestConfig) {
-        return QuestionRestApiApiFp(this.configuration).getAllQuestions(options).then((request) => request(this.axios, this.basePath));
+        return QuestionRestApiFp(this.configuration).getAllQuestions(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2521,10 +2521,10 @@ export class QuestionRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuestionRestApiApi
+     * @memberof QuestionRestApi
      */
     public getQuestionById(id: number, options?: RawAxiosRequestConfig) {
-        return QuestionRestApiApiFp(this.configuration).getQuestionById(id, options).then((request) => request(this.axios, this.basePath));
+        return QuestionRestApiFp(this.configuration).getQuestionById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2533,20 +2533,20 @@ export class QuestionRestApiApi extends BaseAPI {
      * @param {QuestionDTO} questionDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuestionRestApiApi
+     * @memberof QuestionRestApi
      */
     public updateQuestion(id: number, questionDTO: QuestionDTO, options?: RawAxiosRequestConfig) {
-        return QuestionRestApiApiFp(this.configuration).updateQuestion(id, questionDTO, options).then((request) => request(this.axios, this.basePath));
+        return QuestionRestApiFp(this.configuration).updateQuestion(id, questionDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * QuizRestApiApi - axios parameter creator
+ * QuizRestApi - axios parameter creator
  * @export
  */
-export const QuizRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const QuizRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -2741,11 +2741,11 @@ export const QuizRestApiApiAxiosParamCreator = function (configuration?: Configu
 };
 
 /**
- * QuizRestApiApi - functional programming interface
+ * QuizRestApi - functional programming interface
  * @export
  */
-export const QuizRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = QuizRestApiApiAxiosParamCreator(configuration)
+export const QuizRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = QuizRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -2756,7 +2756,7 @@ export const QuizRestApiApiFp = function(configuration?: Configuration) {
         async createQuiz(quizDTO: QuizDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuizDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createQuiz(quizDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuizRestApiApi.createQuiz']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.createQuiz']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2768,7 +2768,7 @@ export const QuizRestApiApiFp = function(configuration?: Configuration) {
         async deleteQuiz(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteQuiz(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuizRestApiApi.deleteQuiz']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.deleteQuiz']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2779,7 +2779,7 @@ export const QuizRestApiApiFp = function(configuration?: Configuration) {
         async getAllQuizs(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<QuizDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllQuizs(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuizRestApiApi.getAllQuizs']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.getAllQuizs']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2791,7 +2791,7 @@ export const QuizRestApiApiFp = function(configuration?: Configuration) {
         async getQuizById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuizDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getQuizById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuizRestApiApi.getQuizById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.getQuizById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -2804,18 +2804,18 @@ export const QuizRestApiApiFp = function(configuration?: Configuration) {
         async updateQuiz(id: number, quizDTO: QuizDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuizDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateQuiz(id, quizDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuizRestApiApi.updateQuiz']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.updateQuiz']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * QuizRestApiApi - factory interface
+ * QuizRestApi - factory interface
  * @export
  */
-export const QuizRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = QuizRestApiApiFp(configuration)
+export const QuizRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = QuizRestApiFp(configuration)
     return {
         /**
          * 
@@ -2866,21 +2866,21 @@ export const QuizRestApiApiFactory = function (configuration?: Configuration, ba
 };
 
 /**
- * QuizRestApiApi - object-oriented interface
+ * QuizRestApi - object-oriented interface
  * @export
- * @class QuizRestApiApi
+ * @class QuizRestApi
  * @extends {BaseAPI}
  */
-export class QuizRestApiApi extends BaseAPI {
+export class QuizRestApi extends BaseAPI {
     /**
      * 
      * @param {QuizDTO} quizDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuizRestApiApi
+     * @memberof QuizRestApi
      */
     public createQuiz(quizDTO: QuizDTO, options?: RawAxiosRequestConfig) {
-        return QuizRestApiApiFp(this.configuration).createQuiz(quizDTO, options).then((request) => request(this.axios, this.basePath));
+        return QuizRestApiFp(this.configuration).createQuiz(quizDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2888,20 +2888,20 @@ export class QuizRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuizRestApiApi
+     * @memberof QuizRestApi
      */
     public deleteQuiz(id: number, options?: RawAxiosRequestConfig) {
-        return QuizRestApiApiFp(this.configuration).deleteQuiz(id, options).then((request) => request(this.axios, this.basePath));
+        return QuizRestApiFp(this.configuration).deleteQuiz(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuizRestApiApi
+     * @memberof QuizRestApi
      */
     public getAllQuizs(options?: RawAxiosRequestConfig) {
-        return QuizRestApiApiFp(this.configuration).getAllQuizs(options).then((request) => request(this.axios, this.basePath));
+        return QuizRestApiFp(this.configuration).getAllQuizs(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2909,10 +2909,10 @@ export class QuizRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuizRestApiApi
+     * @memberof QuizRestApi
      */
     public getQuizById(id: number, options?: RawAxiosRequestConfig) {
-        return QuizRestApiApiFp(this.configuration).getQuizById(id, options).then((request) => request(this.axios, this.basePath));
+        return QuizRestApiFp(this.configuration).getQuizById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2921,20 +2921,20 @@ export class QuizRestApiApi extends BaseAPI {
      * @param {QuizDTO} quizDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof QuizRestApiApi
+     * @memberof QuizRestApi
      */
     public updateQuiz(id: number, quizDTO: QuizDTO, options?: RawAxiosRequestConfig) {
-        return QuizRestApiApiFp(this.configuration).updateQuiz(id, quizDTO, options).then((request) => request(this.axios, this.basePath));
+        return QuizRestApiFp(this.configuration).updateQuiz(id, quizDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * ReponseRestApiApi - axios parameter creator
+ * ReponseRestApi - axios parameter creator
  * @export
  */
-export const ReponseRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ReponseRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -3129,11 +3129,11 @@ export const ReponseRestApiApiAxiosParamCreator = function (configuration?: Conf
 };
 
 /**
- * ReponseRestApiApi - functional programming interface
+ * ReponseRestApi - functional programming interface
  * @export
  */
-export const ReponseRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ReponseRestApiApiAxiosParamCreator(configuration)
+export const ReponseRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ReponseRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -3144,7 +3144,7 @@ export const ReponseRestApiApiFp = function(configuration?: Configuration) {
         async createReponse(reponseDTO: ReponseDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createReponse(reponseDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ReponseRestApiApi.createReponse']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ReponseRestApi.createReponse']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3156,7 +3156,7 @@ export const ReponseRestApiApiFp = function(configuration?: Configuration) {
         async deleteReponse(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteReponse(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ReponseRestApiApi.deleteReponse']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ReponseRestApi.deleteReponse']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3167,7 +3167,7 @@ export const ReponseRestApiApiFp = function(configuration?: Configuration) {
         async getAllReponses(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ReponseDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllReponses(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ReponseRestApiApi.getAllReponses']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ReponseRestApi.getAllReponses']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3179,7 +3179,7 @@ export const ReponseRestApiApiFp = function(configuration?: Configuration) {
         async getReponseById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getReponseById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ReponseRestApiApi.getReponseById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ReponseRestApi.getReponseById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3192,18 +3192,18 @@ export const ReponseRestApiApiFp = function(configuration?: Configuration) {
         async updateReponse(id: number, reponseDTO: ReponseDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReponseDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateReponse(id, reponseDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['ReponseRestApiApi.updateReponse']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['ReponseRestApi.updateReponse']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * ReponseRestApiApi - factory interface
+ * ReponseRestApi - factory interface
  * @export
  */
-export const ReponseRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ReponseRestApiApiFp(configuration)
+export const ReponseRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ReponseRestApiFp(configuration)
     return {
         /**
          * 
@@ -3254,21 +3254,21 @@ export const ReponseRestApiApiFactory = function (configuration?: Configuration,
 };
 
 /**
- * ReponseRestApiApi - object-oriented interface
+ * ReponseRestApi - object-oriented interface
  * @export
- * @class ReponseRestApiApi
+ * @class ReponseRestApi
  * @extends {BaseAPI}
  */
-export class ReponseRestApiApi extends BaseAPI {
+export class ReponseRestApi extends BaseAPI {
     /**
      * 
      * @param {ReponseDTO} reponseDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ReponseRestApiApi
+     * @memberof ReponseRestApi
      */
     public createReponse(reponseDTO: ReponseDTO, options?: RawAxiosRequestConfig) {
-        return ReponseRestApiApiFp(this.configuration).createReponse(reponseDTO, options).then((request) => request(this.axios, this.basePath));
+        return ReponseRestApiFp(this.configuration).createReponse(reponseDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3276,20 +3276,20 @@ export class ReponseRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ReponseRestApiApi
+     * @memberof ReponseRestApi
      */
     public deleteReponse(id: number, options?: RawAxiosRequestConfig) {
-        return ReponseRestApiApiFp(this.configuration).deleteReponse(id, options).then((request) => request(this.axios, this.basePath));
+        return ReponseRestApiFp(this.configuration).deleteReponse(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ReponseRestApiApi
+     * @memberof ReponseRestApi
      */
     public getAllReponses(options?: RawAxiosRequestConfig) {
-        return ReponseRestApiApiFp(this.configuration).getAllReponses(options).then((request) => request(this.axios, this.basePath));
+        return ReponseRestApiFp(this.configuration).getAllReponses(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3297,10 +3297,10 @@ export class ReponseRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ReponseRestApiApi
+     * @memberof ReponseRestApi
      */
     public getReponseById(id: number, options?: RawAxiosRequestConfig) {
-        return ReponseRestApiApiFp(this.configuration).getReponseById(id, options).then((request) => request(this.axios, this.basePath));
+        return ReponseRestApiFp(this.configuration).getReponseById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3309,20 +3309,20 @@ export class ReponseRestApiApi extends BaseAPI {
      * @param {ReponseDTO} reponseDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ReponseRestApiApi
+     * @memberof ReponseRestApi
      */
     public updateReponse(id: number, reponseDTO: ReponseDTO, options?: RawAxiosRequestConfig) {
-        return ReponseRestApiApiFp(this.configuration).updateReponse(id, reponseDTO, options).then((request) => request(this.axios, this.basePath));
+        return ReponseRestApiFp(this.configuration).updateReponse(id, reponseDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
 
 
 /**
- * UsersRestApiApi - axios parameter creator
+ * UsersRestApi - axios parameter creator
  * @export
  */
-export const UsersRestApiApiAxiosParamCreator = function (configuration?: Configuration) {
+export const UsersRestApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -3517,11 +3517,11 @@ export const UsersRestApiApiAxiosParamCreator = function (configuration?: Config
 };
 
 /**
- * UsersRestApiApi - functional programming interface
+ * UsersRestApi - functional programming interface
  * @export
  */
-export const UsersRestApiApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = UsersRestApiApiAxiosParamCreator(configuration)
+export const UsersRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UsersRestApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -3532,7 +3532,7 @@ export const UsersRestApiApiFp = function(configuration?: Configuration) {
         async createUser(userDTO: UserDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createUser(userDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersRestApiApi.createUser']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.createUser']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3544,7 +3544,7 @@ export const UsersRestApiApiFp = function(configuration?: Configuration) {
         async deleteUser(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUser(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersRestApiApi.deleteUser']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.deleteUser']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3555,7 +3555,7 @@ export const UsersRestApiApiFp = function(configuration?: Configuration) {
         async getAllUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDTO>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersRestApiApi.getAllUsers']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.getAllUsers']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3567,7 +3567,7 @@ export const UsersRestApiApiFp = function(configuration?: Configuration) {
         async getUserById(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserById(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersRestApiApi.getUserById']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.getUserById']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3580,18 +3580,18 @@ export const UsersRestApiApiFp = function(configuration?: Configuration) {
         async updateUser(id: number, userDTO: UserDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUser(id, userDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['UsersRestApiApi.updateUser']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.updateUser']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
     }
 };
 
 /**
- * UsersRestApiApi - factory interface
+ * UsersRestApi - factory interface
  * @export
  */
-export const UsersRestApiApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = UsersRestApiApiFp(configuration)
+export const UsersRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UsersRestApiFp(configuration)
     return {
         /**
          * 
@@ -3642,21 +3642,21 @@ export const UsersRestApiApiFactory = function (configuration?: Configuration, b
 };
 
 /**
- * UsersRestApiApi - object-oriented interface
+ * UsersRestApi - object-oriented interface
  * @export
- * @class UsersRestApiApi
+ * @class UsersRestApi
  * @extends {BaseAPI}
  */
-export class UsersRestApiApi extends BaseAPI {
+export class UsersRestApi extends BaseAPI {
     /**
      * 
      * @param {UserDTO} userDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UsersRestApiApi
+     * @memberof UsersRestApi
      */
     public createUser(userDTO: UserDTO, options?: RawAxiosRequestConfig) {
-        return UsersRestApiApiFp(this.configuration).createUser(userDTO, options).then((request) => request(this.axios, this.basePath));
+        return UsersRestApiFp(this.configuration).createUser(userDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3664,20 +3664,20 @@ export class UsersRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UsersRestApiApi
+     * @memberof UsersRestApi
      */
     public deleteUser(id: number, options?: RawAxiosRequestConfig) {
-        return UsersRestApiApiFp(this.configuration).deleteUser(id, options).then((request) => request(this.axios, this.basePath));
+        return UsersRestApiFp(this.configuration).deleteUser(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UsersRestApiApi
+     * @memberof UsersRestApi
      */
     public getAllUsers(options?: RawAxiosRequestConfig) {
-        return UsersRestApiApiFp(this.configuration).getAllUsers(options).then((request) => request(this.axios, this.basePath));
+        return UsersRestApiFp(this.configuration).getAllUsers(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3685,10 +3685,10 @@ export class UsersRestApiApi extends BaseAPI {
      * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UsersRestApiApi
+     * @memberof UsersRestApi
      */
     public getUserById(id: number, options?: RawAxiosRequestConfig) {
-        return UsersRestApiApiFp(this.configuration).getUserById(id, options).then((request) => request(this.axios, this.basePath));
+        return UsersRestApiFp(this.configuration).getUserById(id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3697,10 +3697,10 @@ export class UsersRestApiApi extends BaseAPI {
      * @param {UserDTO} userDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UsersRestApiApi
+     * @memberof UsersRestApi
      */
     public updateUser(id: number, userDTO: UserDTO, options?: RawAxiosRequestConfig) {
-        return UsersRestApiApiFp(this.configuration).updateUser(id, userDTO, options).then((request) => request(this.axios, this.basePath));
+        return UsersRestApiFp(this.configuration).updateUser(id, userDTO, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
