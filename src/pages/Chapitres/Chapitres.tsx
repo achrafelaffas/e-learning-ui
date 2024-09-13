@@ -1,39 +1,49 @@
+import { useEffect } from "react";
 import { SquarePlay } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
+import { ChapitreDTO, CoursDTO } from "@/api";
 
 interface ChapitresProps {
-  selectedChapitre: number | null;
-  setSelectedChapitre: React.Dispatch<React.SetStateAction<number | null>>;
+  cour: CoursDTO;
+  chapitres: ChapitreDTO[];
+  selectedChapitre: ChapitreDTO | null;
+  setSelectedChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
+  setIsQuizSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  quizExists: boolean; // New prop to check if the quiz exists
 }
 
 export const Chapitres: React.FC<ChapitresProps> = ({
+  cour,
+  chapitres,
   selectedChapitre,
   setSelectedChapitre,
+  setIsQuizSelected,
+  quizExists,
 }) => {
 
-  
+  // Set the first chapter by default when the component mounts
+  useEffect(() => {
+    if (chapitres.length > 0 && !selectedChapitre) {
+      setSelectedChapitre(chapitres[0]);
+    }
+  }, [chapitres, selectedChapitre, setSelectedChapitre]);
 
-  const chapitres = [1, 2, 3, 4];
-  const qcm = 5;
+  const handleChapitreClick = (chapitre: ChapitreDTO) => {
+    setSelectedChapitre(chapitre);
+    setIsQuizSelected(false); // Deselect quiz
+  };
 
-  const handleButtonClick = (chapitre: number) => {
-    setSelectedChapitre(chapitre); // Update the selected chapitre
+  const handleQuizClick = () => {
+    setSelectedChapitre(null);
+    setIsQuizSelected(true); // Select quiz
   };
 
   return (
     <div>
-      <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
+      <Card className="overflow-hidden">
         <CardHeader className="bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
@@ -44,7 +54,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
           </div>
         </CardHeader>
         <Separator />
-        {/* chapitres */}
+        {/* Chapitres */}
         <CardContent className="p-6 text-sm">
           <div className="grid gap-3">
             <div className="font-semibold">Chapitres</div>
@@ -56,12 +66,12 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                     <Button
                       className={`w-full flex justify-between items-center ${
                         selectedChapitre === chapitre
-                          ? "bg-black text-white" // Selected chapter is black with white text
-                          : "bg-white text-black" // Other chapters are white with black text
+                          ? "bg-black text-white"
+                          : "bg-white text-black"
                       }`}
-                      onClick={() => handleButtonClick(chapitre)} // Handle click event
+                      onClick={() => handleChapitreClick(chapitre)}
                     >
-                      <span className="text-left">Chapitre {chapitre}</span>
+                      <span className="text-left">{chapitre.titre}</span>
                       <SquarePlay className="h-5 w-5" />
                     </Button>
                   </li>
@@ -70,16 +80,14 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                 <li>Aucun chapitre disponible</li>
               )}
 
-              {/* QCM */}
-              {qcm && (
+              {/* Quiz Button (only show if quiz exists) */}
+              {quizExists && (
                 <li className="flex items-center justify-between">
                   <Button
                     className={`w-full flex justify-between items-center ${
-                      selectedChapitre === qcm
-                        ? "bg-black text-white"
-                        : "bg-white text-black"
+                      selectedChapitre === null ? "bg-black text-white" : "bg-white text-black"
                     }`}
-                    onClick={() => handleButtonClick(qcm)}
+                    onClick={handleQuizClick}
                   >
                     <span className="text-left">QCM</span>
                     <SquarePlay className="h-5 w-5" />

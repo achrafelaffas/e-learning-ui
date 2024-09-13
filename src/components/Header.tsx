@@ -25,8 +25,7 @@ export default function Header() {
           <span className="sr-only">Proit Crm</span>
         </Link>
         <MenuItem to="/">Dashboard</MenuItem>
-        <MenuItem to="/cours">Cours</MenuItem>
-        <MenuItem to="/courses">Courses</MenuItem>
+        <MenuItem to="/matieres">Matieres</MenuItem>
       </nav>
 
       <Sheet>
@@ -45,7 +44,8 @@ export default function Header() {
               <Package2 className="h-6 w-6" />
               <span className="sr-only">Acme Inc</span>
             </Link>
-            <MenuItem to="#">Dashboard</MenuItem>
+            <MenuItem to="/">Dashboard</MenuItem>
+            <MenuItem to="/matieres">Matieres</MenuItem>
           </nav>
         </SheetContent>
       </Sheet>

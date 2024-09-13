@@ -1,4 +1,9 @@
-import { MatiereRestApi } from "@/api";
+import { 
+  ChapitreRestApi,
+  MatiereRestApi,
+  QuizRestApi,
+  CoursRestApi 
+} from "@/api";
 import { Configuration } from "@/api/configuration";
 
 const configuration = new Configuration({
@@ -6,5 +11,8 @@ const configuration = new Configuration({
 });
 
 const matiereRestApiApi = new MatiereRestApi(configuration);
+const coursRestApiApi = new CoursRestApi(configuration);
+const chapitreRestApiApi = new ChapitreRestApi(configuration);
+const quizRestApiApi = new QuizRestApi(configuration);
 
-export { matiereRestApiApi };
+export { matiereRestApiApi, coursRestApiApi, chapitreRestApiApi, quizRestApiApi };

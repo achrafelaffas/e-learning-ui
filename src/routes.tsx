@@ -4,8 +4,9 @@ import Activate from "./pages/auth/activate/Activate";
 import Login from "./pages/auth/login/Login";
 import Layout from "./pages/Dashboard/Layout";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Cour from "./pages/Chapitres/Cour";
 import Cours from "./pages/Cours/Cours";
-import Courses from "./pages/Courses/Courses";
+import Matieres from "./pages/Matieres/Matieres";
 
 const router = createBrowserRouter([
   { path: "/register", element: <Register /> },
@@ -16,8 +17,9 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Dashboard /> },
+      { path: "/chapitres", element: <Cour /> },
       { path: "/cours", element: <Cours /> },
-      { path: "/courses", element: <Courses /> },
+      { path: "/matieres", element: <Matieres /> },
     ],
   },
 ]);

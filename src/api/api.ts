@@ -122,18 +122,6 @@ export interface CoursDTO {
      * @memberof CoursDTO
      */
     'matiere'?: MatiereDTO;
-    /**
-     * 
-     * @type {Array<ChapitreDTO>}
-     * @memberof CoursDTO
-     */
-    'chapitres'?: Array<ChapitreDTO>;
-    /**
-     * 
-     * @type {Array<QuizDTO>}
-     * @memberof CoursDTO
-     */
-    'quiz'?: Array<QuizDTO>;
 }
 /**
  * 
@@ -158,13 +146,19 @@ export interface MatiereDTO {
      * @type {string}
      * @memberof MatiereDTO
      */
-    'description'?: string;
+    'image'?: string;
     /**
      * 
-     * @type {Array<CoursDTO>}
+     * @type {string}
      * @memberof MatiereDTO
      */
-    'cours'?: Array<CoursDTO>;
+    'filiere'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MatiereDTO
+     */
+    'description'?: string;
 }
 /**
  * 
@@ -756,6 +750,43 @@ export const ChapitreRestApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
+         * @param {number} courId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChapitresByCourId: async (courId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'courId' is not null or undefined
+            assertParamExists('getChapitresByCourId', 'courId', courId)
+            const localVarPath = `/chapitres/cour/{courId}`
+                .replace(`{${"courId"}}`, encodeURIComponent(String(courId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {ChapitreDTO} chapitreDTO 
          * @param {*} [options] Override http request option.
@@ -856,6 +887,18 @@ export const ChapitreRestApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} courId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getChapitresByCourId(courId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ChapitreDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getChapitresByCourId(courId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.getChapitresByCourId']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {ChapitreDTO} chapitreDTO 
          * @param {*} [options] Override http request option.
@@ -911,6 +954,15 @@ export const ChapitreRestApiFactory = function (configuration?: Configuration, b
          */
         getChapitreById(id: number, options?: RawAxiosRequestConfig): AxiosPromise<ChapitreDTO> {
             return localVarFp.getChapitreById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} courId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChapitresByCourId(courId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ChapitreDTO>> {
+            return localVarFp.getChapitresByCourId(courId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -973,6 +1025,17 @@ export class ChapitreRestApi extends BaseAPI {
      */
     public getChapitreById(id: number, options?: RawAxiosRequestConfig) {
         return ChapitreRestApiFp(this.configuration).getChapitreById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} courId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChapitreRestApi
+     */
+    public getChapitresByCourId(courId: number, options?: RawAxiosRequestConfig) {
+        return ChapitreRestApiFp(this.configuration).getChapitresByCourId(courId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1144,6 +1207,43 @@ export const CoursRestApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {number} matiereId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCoursesByMatiereId: async (matiereId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'matiereId' is not null or undefined
+            assertParamExists('getCoursesByMatiereId', 'matiereId', matiereId)
+            const localVarPath = `/cours/matiere/{matiereId}`
+                .replace(`{${"matiereId"}}`, encodeURIComponent(String(matiereId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {CoursDTO} coursDTO 
          * @param {*} [options] Override http request option.
@@ -1244,6 +1344,18 @@ export const CoursRestApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} matiereId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCoursesByMatiereId(matiereId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CoursDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCoursesByMatiereId(matiereId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['CoursRestApi.getCoursesByMatiereId']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {CoursDTO} coursDTO 
          * @param {*} [options] Override http request option.
@@ -1299,6 +1411,15 @@ export const CoursRestApiFactory = function (configuration?: Configuration, base
          */
         getCoursById(id: number, options?: RawAxiosRequestConfig): AxiosPromise<CoursDTO> {
             return localVarFp.getCoursById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} matiereId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCoursesByMatiereId(matiereId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<CoursDTO>> {
+            return localVarFp.getCoursesByMatiereId(matiereId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1361,6 +1482,17 @@ export class CoursRestApi extends BaseAPI {
      */
     public getCoursById(id: number, options?: RawAxiosRequestConfig) {
         return CoursRestApiFp(this.configuration).getCoursById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} matiereId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CoursRestApi
+     */
+    public getCoursesByMatiereId(matiereId: number, options?: RawAxiosRequestConfig) {
+        return CoursRestApiFp(this.configuration).getCoursesByMatiereId(matiereId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2659,6 +2791,43 @@ export const QuizRestApiAxiosParamCreator = function (configuration?: Configurat
         },
         /**
          * 
+         * @param {number} courId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getQuizByCourId: async (courId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'courId' is not null or undefined
+            assertParamExists('getQuizByCourId', 'courId', courId)
+            const localVarPath = `/quizs/cour/{courId}`
+                .replace(`{${"courId"}}`, encodeURIComponent(String(courId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2784,6 +2953,18 @@ export const QuizRestApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} courId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getQuizByCourId(courId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuizDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getQuizByCourId(courId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.getQuizByCourId']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2845,6 +3026,15 @@ export const QuizRestApiFactory = function (configuration?: Configuration, baseP
         },
         /**
          * 
+         * @param {number} courId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getQuizByCourId(courId: number, options?: RawAxiosRequestConfig): AxiosPromise<QuizDTO> {
+            return localVarFp.getQuizByCourId(courId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2902,6 +3092,17 @@ export class QuizRestApi extends BaseAPI {
      */
     public getAllQuizs(options?: RawAxiosRequestConfig) {
         return QuizRestApiFp(this.configuration).getAllQuizs(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} courId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof QuizRestApi
+     */
+    public getQuizByCourId(courId: number, options?: RawAxiosRequestConfig) {
+        return QuizRestApiFp(this.configuration).getQuizByCourId(courId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
