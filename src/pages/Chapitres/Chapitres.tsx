@@ -11,8 +11,9 @@ interface ChapitresProps {
   chapitres: ChapitreDTO[];
   selectedChapitre: ChapitreDTO | null;
   setSelectedChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
+  isQuizSelected: boolean; // Added this prop
   setIsQuizSelected: React.Dispatch<React.SetStateAction<boolean>>;
-  quizExists: boolean; // New prop to check if the quiz exists
+  quizExists: boolean;
 }
 
 export const Chapitres: React.FC<ChapitresProps> = ({
@@ -20,10 +21,10 @@ export const Chapitres: React.FC<ChapitresProps> = ({
   chapitres,
   selectedChapitre,
   setSelectedChapitre,
+  isQuizSelected, // Destructure isQuizSelected here
   setIsQuizSelected,
   quizExists,
 }) => {
-
   // Set the first chapter by default when the component mounts
   useEffect(() => {
     if (chapitres.length > 0 && !selectedChapitre) {
@@ -65,9 +66,9 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                   <li key={index} className="flex items-center justify-between">
                     <Button
                       className={`w-full flex justify-between items-center ${
-                        selectedChapitre === chapitre
+                        selectedChapitre === chapitre && !isQuizSelected
                           ? "bg-black text-white"
-                          : "bg-white text-black"
+                          : "bg-white text-black hover:bg-slate-100"
                       }`}
                       onClick={() => handleChapitreClick(chapitre)}
                     >
@@ -85,11 +86,11 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                 <li className="flex items-center justify-between">
                   <Button
                     className={`w-full flex justify-between items-center ${
-                      selectedChapitre === null ? "bg-black text-white" : "bg-white text-black"
+                      isQuizSelected ? "bg-black text-white" : "bg-white text-black hover:bg-slate-100"
                     }`}
                     onClick={handleQuizClick}
                   >
-                    <span className="text-left">QCM</span>
+                    <span className="text-left">Quiz</span>
                     <SquarePlay className="h-5 w-5" />
                   </Button>
                 </li>

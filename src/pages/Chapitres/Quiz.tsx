@@ -11,64 +11,44 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { QuizDTO } from "@/api";
 
-const quizQuestions = [
-  {
-    question: "What is React?",
-    answers: [
-      "A JavaScript library for building user interfaces",
-      "A programming language",
-      "A database management system",
-      "An operating system",
-    ],
-    correctAnswer: "A JavaScript library for building user interfaces",
-  },
-  {
-    question:
-      "Which CSS property is used to change the text color of an element?",
-    answers: ["color", "text-color", "font-color", "text-style"],
-    correctAnswer: "color",
-  },
-  {
-    question: "What does HTML stand for?",
-    answers: [
-      "Hyper Text Markup Language",
-      "High Tech Modern Language",
-      "Hyper Transfer Markup Language",
-      "Home Tool Markup Language",
-    ],
-    correctAnswer: "Hyper Text Markup Language",
-  },
-  {
-    question:
-      "Which JavaScript method is used to remove the last element from an array?",
-    answers: ["pop()", "push()", "shift()", "unshift()"],
-    correctAnswer: "pop()",
-  },
-  {
-    question: "What is the purpose of CSS media queries?",
-    answers: [
-      "To create responsive designs",
-      "To add interactivity to web pages",
-      "To define custom fonts",
-      "To optimize database queries",
-    ],
-    correctAnswer: "To create responsive designs",
-  },
-];
+interface QuizProps {
+  quiz: QuizDTO | null;
+}
 
-export default function Component() {
+interface QuizQuestion {
+  question: string;
+  answers: { text: string; isCorrect: boolean }[];
+}
+
+export default function Quiz({ quiz }: QuizProps) {
+
+  const quizQuestions: QuizQuestion[] = quiz
+    ? quiz?.questions?.map((data) => ({
+        question: data?.enonce,
+        answers: data?.reponses?.map((answer) => ({
+          text: answer?.texte,
+          isCorrect: answer?.estCorrect,
+        })),
+      }))
+    : [];
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer);
   };
 
   const handleNextQuestion = () => {
-    if (selectedAnswer === quizQuestions[currentQuestion].correctAnswer) {
+    const isCorrectAnswer = quizQuestions[currentQuestion].answers.find(
+      (answer) => answer.text === selectedAnswer && answer.isCorrect
+    );
+
+    if (isCorrectAnswer) {
       setScore(score + 1);
     }
 
@@ -92,15 +72,15 @@ export default function Component() {
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
       <Card>
         <CardHeader>
-          <CardTitle>Web Development Quiz</CardTitle>
-          <CardDescription>Test your web development knowledge</CardDescription>
+          <CardTitle>{quiz?.titre}</CardTitle>
+          <CardDescription>Testez vos connaissances</CardDescription>
         </CardHeader>
         <CardContent>
           {showScore ? (
             <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Quiz Completed!</h2>
+              <h2 className="text-2xl font-bold mb-4">Quiz Terminé !</h2>
               <p className="text-xl mb-4">
-                You scored {score} out of {quizQuestions.length}
+                Vous avez obtenu {score} sur {quizQuestions.length}
               </p>
               <Progress
                 value={(score / quizQuestions.length) * 100}
@@ -114,7 +94,7 @@ export default function Component() {
             <>
               <div className="mb-4">
                 <p className="text-sm text-gray-500 mb-2">
-                  Question {currentQuestion + 1} of {quizQuestions.length}
+                  Question {currentQuestion + 1} sur {quizQuestions.length}
                 </p>
                 <Progress
                   value={((currentQuestion + 1) / quizQuestions.length) * 100}
@@ -130,8 +110,8 @@ export default function Component() {
               >
                 {quizQuestions[currentQuestion].answers.map((answer, index) => (
                   <div key={index} className="flex items-center space-x-2 mb-2">
-                    <RadioGroupItem value={answer} id={`answer-${index}`} />
-                    <Label htmlFor={`answer-${index}`}>{answer}</Label>
+                    <RadioGroupItem value={answer.text} id={`answer-${index}`} />
+                    <Label htmlFor={`answer-${index}`}>{answer.text}</Label>
                   </div>
                 ))}
               </RadioGroup>
@@ -141,7 +121,7 @@ export default function Component() {
         <CardFooter>
           {showScore ? (
             <Button onClick={restartQuiz} className="w-full">
-              Restart Quiz
+              Recommencer le quiz
             </Button>
           ) : (
             <Button
@@ -150,8 +130,8 @@ export default function Component() {
               disabled={!selectedAnswer}
             >
               {currentQuestion === quizQuestions.length - 1
-                ? "Finish Quiz"
-                : "Next Question"}
+                ? "Terminer le quiz"
+                : "Question suivante"}
             </Button>
           )}
         </CardFooter>

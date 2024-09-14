@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-// import {useState}  from 'react';
+import {useState}  from 'react';
 // import { Document, Page } from 'react-pdf';
 // import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
@@ -27,25 +27,27 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
   return (
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
       {/* Video Card */}
-      {chapitre?.video ? (
+      
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-4xl">{chapitre?.titre || "No Title"}</CardTitle>
             <CardDescription>
-              {chapitre?.cours?.titre || "No course description available"}{chapitre.video}
+              {chapitre?.cours?.titre || "No course description available"}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <video width="100%" controls>
-              <source src={`src/pages/videos/${chapitre?.video}`} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {chapitre?.video ? (
+              <video width="100%" controls>
+                <source src={`src/pages/videos/${chapitre?.video}`} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              ) : (
+                <div>No video available for this chapter.</div> // Message si aucune vidéo n'est disponible
+              )}
           </CardContent>
           <CardFooter />
         </Card>
-      ) : (
-        <div>No video available for this chapter.</div> // Message si aucune vidéo n'est disponible
-      )}
+      
 
       {/* PDF Card */}
       {chapitre?.contenu ? (
@@ -56,14 +58,14 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
           </CardHeader>
           <CardContent>
             {/* Logique pour le rendu du PDF */}
-            {/* 
-              <Document file={`src/pages/pdfs/${chapitre?.pdf}`} onLoadSuccess={onDocumentLoadSuccess}>
+{/*             
+              <Document file={`src/pages/pdfs/${chapitre?.contenu}`} onLoadSuccess={onDocumentLoadSuccess}>
                 <Page pageNumber={pageNumber} />
               </Document>
               <p>
                 Page {pageNumber} of {numPages}
-              </p>
-            */}
+              </p> */}
+           
           </CardContent>
         </Card>
       ) : (

@@ -215,12 +215,6 @@ export interface QuestionDTO {
      * @memberof QuestionDTO
      */
     'reponses'?: Array<ReponseDTO>;
-    /**
-     * 
-     * @type {ReponseDTO}
-     * @memberof QuestionDTO
-     */
-    'reponseCorrecte'?: ReponseDTO;
 }
 /**
  * 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Chapitres } from "./Chapitres";
 import { Video_Pdf } from "./Video_Pdf";
-import Qcm from "./Qcm";
+import Quiz from "./Quiz";
 import { useLocation } from "react-router-dom";
 import { ChapitreDTO, CoursDTO, QuizDTO } from "@/api";
 import { coursRestApiApi as courApi } from "@/config/HttpClient";
@@ -20,7 +20,8 @@ function Cour() {
   const [quiz, setQuiz] = useState<QuizDTO>({});
   const [cour, setCour] = useState<CoursDTO>({});
   const [selectedChapitre, setSelectedChapitre] = useState<ChapitreDTO | null>(null);
-  const [isQuizSelected, setIsQuizSelected] = useState(false);
+  const [isQuizSelected, setIsQuizSelected] = useState(false); // Make sure it's initialized
+  const [quizExists, setQuizExists] = useState(false);
 
   useEffect(() => {
     if (courId) {
@@ -47,6 +48,7 @@ function Cour() {
         try {
           const response = await quizApi.getQuizByCourId(courId);
           setQuiz(response.data);
+          setQuizExists(true);
         } catch {
           setError("Quiz not found");
         } finally {
@@ -57,6 +59,7 @@ function Cour() {
     }
   }, []);
 
+  
   useEffect(() => {
     if (courId) {
       const fetchCour = async () => {
@@ -79,7 +82,7 @@ function Cour() {
       <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         {/* Render the correct component based on the selection */}
         {isQuizSelected ? (
-          <Qcm />
+          <Quiz quiz={quiz}/>
         ) : (
           <Video_Pdf chapitre={selectedChapitre} />
         )}
@@ -89,8 +92,9 @@ function Cour() {
           cour={cour}
           selectedChapitre={selectedChapitre}
           setSelectedChapitre={setSelectedChapitre}
-          setIsQuizSelected={setIsQuizSelected}
-          quizExists={isQuizSelected}
+          isQuizSelected={isQuizSelected} // Pass isQuizSelected state
+          setIsQuizSelected={setIsQuizSelected} // Pass setter for isQuizSelected
+          quizExists={quizExists}
         />
       </main>
     </>
