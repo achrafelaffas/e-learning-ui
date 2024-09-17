@@ -54,6 +54,12 @@ export interface AuthResponseDTO {
      * @memberof AuthResponseDTO
      */
     'token'?: string;
+    /**
+     * 
+     * @type {UserDTO}
+     * @memberof AuthResponseDTO
+     */
+    'user'?: UserDTO;
 }
 /**
  * 
@@ -215,6 +221,12 @@ export interface QuestionDTO {
      * @memberof QuestionDTO
      */
     'reponses'?: Array<ReponseDTO>;
+    /**
+     * 
+     * @type {ReponseDTO}
+     * @memberof QuestionDTO
+     */
+    'reponseCorrecte'?: ReponseDTO;
 }
 /**
  * 
@@ -300,6 +312,25 @@ export interface ReponseDTO {
 /**
  * 
  * @export
+ * @interface Role
+ */
+export interface Role {
+    /**
+     * 
+     * @type {number}
+     * @memberof Role
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Role
+     */
+    'name'?: string;
+}
+/**
+ * 
+ * @export
  * @interface UserDTO
  */
 export interface UserDTO {
@@ -323,19 +354,11 @@ export interface UserDTO {
     'email'?: string;
     /**
      * 
-     * @type {string}
+     * @type {Array<Role>}
      * @memberof UserDTO
      */
-    'role'?: UserDTORoleEnum;
+    'roles'?: Array<Role>;
 }
-
-export const UserDTORoleEnum = {
-    Admin: 'ADMIN',
-    Etudiant: 'ETUDIANT'
-} as const;
-
-export type UserDTORoleEnum = typeof UserDTORoleEnum[keyof typeof UserDTORoleEnum];
-
 
 /**
  * AuthRestApi - axios parameter creator

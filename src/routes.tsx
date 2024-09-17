@@ -7,6 +7,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Cour from "./pages/Chapitres/Cour";
 import Cours from "./pages/Cours/Cours";
 import Matieres from "./pages/Matieres/Matieres";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Admin from "./admin/Admin";
 
 const router = createBrowserRouter([
   { path: "/register", element: <Register /> },
@@ -14,12 +16,23 @@ const router = createBrowserRouter([
   { path: "/login", element: <Login /> },
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "/chapitres", element: <Cour /> },
       { path: "/cours", element: <Cours /> },
-      { path: "/matieres", element: <Matieres /> },
+      {
+        path: "/matieres",
+        element: <Matieres />,
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
+      },
     ],
   },
 ]);

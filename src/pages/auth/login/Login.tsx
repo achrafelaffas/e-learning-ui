@@ -41,10 +41,14 @@ const Login = () => {
   const onSubmit = async (authRequest: z.infer<typeof AuthRequestSchema>) => {
     await auth.authenticate(authRequest).then(
       (response) => {
-        const token: AuthResponseDTO = response.data;
-        const accessToken = token.token || "";
+        const auth: AuthResponseDTO = response.data;
+        const accessToken = auth.token || "";
         localStorage.setItem("accessToken", accessToken);
-        navigate("/");
+
+        const isAdmin = auth.user?.roles?.some((role) => role.name == "ADMIN");
+
+        if (isAdmin) navigate("/admin");
+        else navigate("/");
       },
       (error) => console.error(error)
     );

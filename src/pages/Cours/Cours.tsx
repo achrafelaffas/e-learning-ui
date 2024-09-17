@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { CoursDTO, MatiereDTO } from "@/api";
 import { coursRestApiApi as api } from "@/config/HttpClient";
 import { matiereRestApiApi as matiereApi } from "@/config/HttpClient";
+import CourCollapsible from "./CourCollapsible";
 
 function Cours() {
-
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const matiereIdStr = searchParams.get("matiereId");
@@ -55,17 +55,15 @@ function Cours() {
 
   return (
     <>
-      <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-4 xl:grid-cols-4">
-        
+      <main className="">
         {isLoading ? (
           <div>Loading...</div>
         ) : error ? (
           <div>{error}</div>
         ) : (
-          <AccordionCours cours={cours} matiere={matiere} />
+          // <AccordionCours cours={cours} matiere={matiere} />
+          <CourCollapsible cours={cours} matiere={matiere} />
         )}
-
-        <RightCard />
       </main>
     </>
   );

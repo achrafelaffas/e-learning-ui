@@ -22,7 +22,6 @@ interface CoursAccordionProps {
 }
 
 export function AccordionCours({ cours, matiere }: CoursAccordionProps) {
-
   const navigate = useNavigate();
 
   const handleButtonClick = (courId: number | undefined) => {
@@ -39,22 +38,28 @@ export function AccordionCours({ cours, matiere }: CoursAccordionProps) {
           </CardHeader>
           <CardContent>
             <Accordion type="single" collapsible className="w-full">
-
               {cours.length > 0 ? (
                 cours.map((cour, index) => (
                   <AccordionItem key={index} value={`item-${index}`}>
                     <AccordionTrigger>{cour.titre}</AccordionTrigger>
                     <AccordionContent>
-                      <ul>
+                      <ul className="flex justify-between items-center">
                         <li>{cour.description}</li>
-                        <li><Button onClick={() => handleButtonClick(cour.id)}>Voir le Cour</Button></li>
+                        <li>
+                          <Button
+                            variant="ghost"
+                            onClick={() => handleButtonClick(cour.id)}
+                          >
+                            Voir le Cour
+                          </Button>
+                        </li>
                       </ul>
                     </AccordionContent>
                   </AccordionItem>
-                ))):(
-                  <p>Loading...</p>
-                )}
-
+                ))
+              ) : (
+                <p>Loading...</p>
+              )}
             </Accordion>
           </CardContent>
           <CardFooter></CardFooter>
