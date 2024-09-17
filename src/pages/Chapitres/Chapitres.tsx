@@ -66,7 +66,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                   <li key={index} className="flex items-center justify-between">
                     <Button
                       className={`w-full flex justify-between items-center ${
-                        selectedChapitre === chapitre && !isQuizSelected
+                        selectedChapitre && selectedChapitre.id === chapitre.id && !isQuizSelected
                           ? "bg-black text-white"
                           : "bg-white text-black hover:bg-slate-100"
                       }`}
@@ -80,6 +80,8 @@ export const Chapitres: React.FC<ChapitresProps> = ({
               ) : (
                 <li>Aucun chapitre disponible</li>
               )}
+
+              <Separator/>
 
               {/* Quiz Button (only show if quiz exists) */}
               {quizExists && (
@@ -100,7 +102,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
         </CardContent>
         <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
-            Updated <time dateTime="2023-11-23">November 23, 2023</time>
+            Updated <time dateTime="2023-11-23">August 10, 2024</time>
           </div>
         </CardFooter>
       </Card>

@@ -8,24 +8,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import {useState}  from 'react';
-// import { Document, Page } from 'react-pdf';
-// import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import {pdfjs} from 'react-pdf';
+import PdfComp from "./PdfComponent";
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
-// const [numPages, setNumPages] = useState<number>();
-// const [pageNumber, setPageNumber] = useState<number>(1);
+pdfjs. GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url,
+  ).toString();
 
-// function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
-//   setNumPages(numPages);
-// }
 
 interface VideoPdfProps {
   chapitre: ChapitreDTO | null;
 }
 
 export function Video_Pdf({ chapitre }: VideoPdfProps) {
+
   return (
-    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
+    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-100px)] overflow-y-auto">
       {/* Video Card */}
       
         <Card>
@@ -52,19 +52,15 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
       {/* PDF Card */}
       {chapitre?.contenu ? (
         <Card>
-          <CardHeader className="px-7">
-            <CardTitle>PDF</CardTitle>
-            <CardDescription>Course PDF for the chapter.</CardDescription>
+          <CardHeader className="pb-2">
+            <CardTitle></CardTitle>
+            <CardDescription></CardDescription>
           </CardHeader>
           <CardContent>
             {/* Logique pour le rendu du PDF */}
-{/*             
-              <Document file={`src/pages/pdfs/${chapitre?.contenu}`} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} />
-              </Document>
-              <p>
-                Page {pageNumber} of {numPages}
-              </p> */}
+            <div className="max-w-full">
+              <PdfComp pdfLink={chapitre.contenu}/>
+            </div>
            
           </CardContent>
         </Card>

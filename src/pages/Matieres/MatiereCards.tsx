@@ -58,7 +58,7 @@ export function MatiereCards({ matieres }: MatiereCardsProps) {
                 </CardHeader>
                 <CardContent>
                   <img
-                    className=" rounded-sm object-cover"
+                    className=" rounded-sm object-cover h-40 w-96"
                     src={`src/pages/images/${matiere.image}`}
                     alt="image"
                   />
