@@ -17,10 +17,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import z from "zod";
 import { AuthRestApi, AuthResponseDTO } from "@/api";
 import Spinner from "@/components/ui/spinner";
+import useSignIn from "react-auth-kit/hooks/useSignIn";
 
 const AuthRequestSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -28,6 +29,7 @@ const AuthRequestSchema = z.object({
 });
 
 const Login = () => {
+  const signIn = useSignIn();
   const navigate = useNavigate();
   const auth = new AuthRestApi();
   const form = useForm<z.infer<typeof AuthRequestSchema>>({
@@ -43,12 +45,29 @@ const Login = () => {
       (response) => {
         const auth: AuthResponseDTO = response.data;
         const accessToken = auth.token || "";
-        localStorage.setItem("accessToken", accessToken);
-
+        const username = auth.user?.nom || "";
+        const email = auth.user?.email || "";
+        const id = auth.user?.id || null;
         const isAdmin = auth.user?.roles?.some((role) => role.name == "ADMIN");
 
-        if (isAdmin) navigate("/admin");
-        else navigate("/");
+        signIn({
+          auth: {
+            token: accessToken,
+            type: "Bearer",
+          },
+          userState: {
+            name: username,
+            email: email,
+            id: id,
+            isAdmin: isAdmin,
+          },
+        });
+
+        if (isAdmin === true) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       },
       (error) => console.error(error)
     );

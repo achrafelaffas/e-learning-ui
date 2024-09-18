@@ -1,5 +1,4 @@
 import { BookCopy, FileChartPie } from "lucide-react";
-import MenuItem from "./MenuItem";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {

@@ -1,13 +1,15 @@
-import { RightCard } from "./RightCard";
-import { AccordionCours } from "./AccordionCours";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { CoursDTO, MatiereDTO } from "@/api";
-import { coursRestApiApi as api } from "@/config/HttpClient";
-import { matiereRestApiApi as matiereApi } from "@/config/HttpClient";
+import { Configuration, CoursDTO, CoursRestApi, MatiereDTO, MatiereRestApi } from "@/api";
 import CourCollapsible from "./CourCollapsible";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+
 
 function Cours() {
+  const config = new Configuration();
+  const authHeader = useAuthHeader();
+  if (authHeader) config.accessToken = authHeader.replace("Bearer ", "");
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const matiereIdStr = searchParams.get("matiereId");
@@ -18,11 +20,14 @@ function Cours() {
   const [cours, setCours] = useState<CoursDTO[]>([]);
   const [matiere, setMatiere] = useState<MatiereDTO>({});
 
+  const matiereApi = new MatiereRestApi(config);
+  const coursApi = new CoursRestApi(config);
+
   useEffect(() => {
     const fetchMatieres = async () => {
       setIsLoading(true);
       try {
-        const response = await api.getCoursesByMatiereId(matiereId);
+        const response = await coursApi.getCoursesByMatiereId(matiereId);
         const cours = response.data;
         setCours(cours);
       } catch {

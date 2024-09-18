@@ -3,12 +3,19 @@ import { Chapitres } from "./Chapitres";
 import { Video_Pdf } from "./Video_Pdf";
 import Quiz from "./Quiz";
 import { useLocation } from "react-router-dom";
-import { ChapitreDTO, CoursDTO, QuizDTO } from "@/api";
-import { coursRestApiApi as courApi } from "@/config/HttpClient";
-import { chapitreRestApiApi as chapitreApi } from "@/config/HttpClient";
-import { quizRestApiApi as quizApi } from "@/config/HttpClient";
+import { ChapitreDTO, ChapitreRestApi, Configuration, CoursDTO, CoursRestApi, QuizDTO, QuizRestApi } from "@/api";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+
 
 function Cour() {
+  const config = new Configuration();
+  const authHeader = useAuthHeader();
+  if (authHeader) config.accessToken = authHeader.replace("Bearer ", "");
+
+  const quizApi = new QuizRestApi(config);
+  const courApi = new CoursRestApi(config);
+  const chapitreApi = new ChapitreRestApi(config);
+  
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const courIdStr = searchParams.get("courId");

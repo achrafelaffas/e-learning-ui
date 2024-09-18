@@ -1,6 +1,5 @@
 import ModeToggle from "@/components/ModeToggle";
 import Navbar from "@/components/Navbar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,22 +11,28 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-  Bell,
-  CircleUser,
-  GraduationCap,
-  Home,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  Search,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { CircleUser, GraduationCap, Menu, Search } from "lucide-react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import useSignOut from "react-auth-kit/hooks/useSignOut";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+
+interface User {
+  name: string;
+  email: string;
+  id: number | null;
+  isAdmin: boolean;
+}
 
 const Lyout = () => {
+  const signOut = useSignOut();
+  const navigate = useNavigate();
+  const user = useAuthUser<User>();
+
+  const logout = () => {
+    signOut();
+    navigate("/login");
+  };
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
@@ -75,7 +80,7 @@ const Lyout = () => {
             </form>
           </div>
 
-          <ModeToggle/>
+          <ModeToggle />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -85,17 +90,14 @@ const Lyout = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Support</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </header>
 
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 bg-slate-50">
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
           <Outlet />
         </main>
       </div>

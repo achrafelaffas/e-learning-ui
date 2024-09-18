@@ -5,13 +5,10 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import QuizChart from "./QuizChart";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
