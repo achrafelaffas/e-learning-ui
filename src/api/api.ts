@@ -221,12 +221,6 @@ export interface QuestionDTO {
      * @memberof QuestionDTO
      */
     'reponses'?: Array<ReponseDTO>;
-    /**
-     * 
-     * @type {ReponseDTO}
-     * @memberof QuestionDTO
-     */
-    'reponseCorrecte'?: ReponseDTO;
 }
 /**
  * 
@@ -1535,14 +1529,17 @@ export const MatiereRestApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @param {MatiereDTO} matiereDTO 
+         * @param {string} matiere 
+         * @param {File} image 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createMatiere: async (matiereDTO: MatiereDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'matiereDTO' is not null or undefined
-            assertParamExists('createMatiere', 'matiereDTO', matiereDTO)
-            const localVarPath = `/matieres`;
+        createMatiereWithImage: async (matiere: string, image: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'matiere' is not null or undefined
+            assertParamExists('createMatiereWithImage', 'matiere', matiere)
+            // verify required parameter 'image' is not null or undefined
+            assertParamExists('createMatiereWithImage', 'image', image)
+            const localVarPath = `/matieres/upload`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1553,19 +1550,28 @@ export const MatiereRestApiAxiosParamCreator = function (configuration?: Configu
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
 
             // authentication BearerAuth required
             // http bearer authentication required
             await setBearerAuthToObject(localVarHeaderParameter, configuration)
 
+            if (matiere !== undefined) {
+                localVarQueryParameter['matiere'] = matiere;
+            }
 
+
+            if (image !== undefined) { 
+                localVarFormParams.append('image', image as any);
+            }
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(matiereDTO, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = localVarFormParams;
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1734,14 +1740,15 @@ export const MatiereRestApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @param {MatiereDTO} matiereDTO 
+         * @param {string} matiere 
+         * @param {File} image 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createMatiere(matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MatiereDTO>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createMatiere(matiereDTO, options);
+        async createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createMatiereWithImage(matiere, image, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.createMatiere']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.createMatiereWithImage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1804,12 +1811,13 @@ export const MatiereRestApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @param {MatiereDTO} matiereDTO 
+         * @param {string} matiere 
+         * @param {File} image 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createMatiere(matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig): AxiosPromise<MatiereDTO> {
-            return localVarFp.createMatiere(matiereDTO, options).then((request) => request(axios, basePath));
+        createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+            return localVarFp.createMatiereWithImage(matiere, image, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1859,13 +1867,14 @@ export const MatiereRestApiFactory = function (configuration?: Configuration, ba
 export class MatiereRestApi extends BaseAPI {
     /**
      * 
-     * @param {MatiereDTO} matiereDTO 
+     * @param {string} matiere 
+     * @param {File} image 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MatiereRestApi
      */
-    public createMatiere(matiereDTO: MatiereDTO, options?: RawAxiosRequestConfig) {
-        return MatiereRestApiFp(this.configuration).createMatiere(matiereDTO, options).then((request) => request(this.axios, this.basePath));
+    public createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig) {
+        return MatiereRestApiFp(this.configuration).createMatiereWithImage(matiere, image, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
