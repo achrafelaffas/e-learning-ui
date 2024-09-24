@@ -23,7 +23,7 @@ export function MatiereCards({ matieres }: MatiereCardsProps) {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row w-full gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-full gap-3">
         {matieres.length > 0 ? (
           matieres.map((matiere, index) => (
             <div key={index} className="w-full basis-1/3">

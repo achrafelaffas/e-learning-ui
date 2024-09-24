@@ -7,8 +7,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Cour from "./pages/Chapitres/Cour";
 import Cours from "./pages/Cours/Cours";
 import Matieres from "./pages/Matieres/Matieres";
-import Admin from "./admin/Admin";
 import RequireAuth from "@auth-kit/react-router/RequireAuth";
+import Admin from "./pages/admin/Admin";
+import AdminMatieres from "./pages/admin/Matieres/AdminMatieres";
 
 const router = createBrowserRouter([
   { path: "/register", element: <Register /> },
@@ -24,10 +25,10 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "/chapitres", element: <Cour /> },
-      { path: "/cours", element: <Cours /> },
+      { path: "/cours", element: <Cours/> },
       {
         path: "/matieres",
-        element: <Matieres />,
+        element: <AdminMatieres />,
       },
       {
         path: "/admin",

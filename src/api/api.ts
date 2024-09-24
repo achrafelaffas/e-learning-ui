@@ -1522,6 +1522,176 @@ export class CoursRestApi extends BaseAPI {
 
 
 /**
+ * FileRestApi - axios parameter creator
+ * @export
+ */
+export const FileRestApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFile: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/file`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} imageName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getImage: async (imageName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'imageName' is not null or undefined
+            assertParamExists('getImage', 'imageName', imageName)
+            const localVarPath = `/image/{imageName}`
+                .replace(`{${"imageName"}}`, encodeURIComponent(String(imageName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * FileRestApi - functional programming interface
+ * @export
+ */
+export const FileRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = FileRestApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFile(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFile(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FileRestApi.getFile']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} imageName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getImage(imageName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getImage(imageName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FileRestApi.getImage']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * FileRestApi - factory interface
+ * @export
+ */
+export const FileRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = FileRestApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFile(options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.getFile(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} imageName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getImage(imageName: string, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.getImage(imageName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * FileRestApi - object-oriented interface
+ * @export
+ * @class FileRestApi
+ * @extends {BaseAPI}
+ */
+export class FileRestApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileRestApi
+     */
+    public getFile(options?: RawAxiosRequestConfig) {
+        return FileRestApiFp(this.configuration).getFile(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} imageName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileRestApi
+     */
+    public getImage(imageName: string, options?: RawAxiosRequestConfig) {
+        return FileRestApiFp(this.configuration).getImage(imageName, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
  * MatiereRestApi - axios parameter creator
  * @export
  */
@@ -1745,7 +1915,7 @@ export const MatiereRestApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+        async createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MatiereDTO>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createMatiereWithImage(matiere, image, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.createMatiereWithImage']?.[localVarOperationServerIndex]?.url;
@@ -1816,7 +1986,7 @@ export const MatiereRestApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig): AxiosPromise<object> {
+        createMatiereWithImage(matiere: string, image: File, options?: RawAxiosRequestConfig): AxiosPromise<MatiereDTO> {
             return localVarFp.createMatiereWithImage(matiere, image, options).then((request) => request(axios, basePath));
         },
         /**
