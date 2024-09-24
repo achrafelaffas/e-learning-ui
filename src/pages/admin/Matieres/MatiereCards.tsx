@@ -44,7 +44,7 @@ export function MatiereCards({ matieres, setMatieres }: MatiereCardsProps) {
   };
 
   const handleButtonClick = (matiereId: number | undefined) => {
-    navigate(`/cours?matiereId=${matiereId}`);
+    navigate(`/admin/cours?matiereId=${matiereId}`);
   };
 
   const deleteMatiere = async (matiereId: number | undefined) => {

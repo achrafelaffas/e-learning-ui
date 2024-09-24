@@ -67,7 +67,7 @@ const CardImage = ({ nameImage }: CardImageProps) => {
       ) : (
         <img
           className="w-full h-full object-cover rounded-sm"
-          src="src/pages/images/MatiereImageByDefault.jpg" // Set your placeholder image URL here
+          src="../src/pages/images/MatiereImageByDefault.jpg" // Set your placeholder image URL here
           alt="Empty placeholder"
         />
       )}

@@ -67,7 +67,7 @@ function AdminCours() {
           <div>{error}</div>
         ) : (
           // <AccordionCours cours={cours} matiere={matiere} />
-          <CourCollapsible cours={cours} matiere={matiere} />
+          <CourCollapsible cours={cours} setCours={setCours} matiere={matiere} />
         )}
       </main>
     </>
