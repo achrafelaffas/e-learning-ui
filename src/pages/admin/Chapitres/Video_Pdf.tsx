@@ -25,7 +25,7 @@ interface VideoPdfProps {
 export function Video_Pdf({ chapitre }: VideoPdfProps) {
 
   return (
-    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-100px)] overflow-y-auto">
+    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-110px)] overflow-y-auto">
       {/* Video Card */}
       
         <Card>
@@ -38,7 +38,7 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
           <CardContent>
             {chapitre?.video ? (
               <video width="100%" controls>
-                <source src={`src/pages/videos/${chapitre?.video}`} type="video/mp4" />
+                <source src={`../src/pages/videos/${chapitre?.video}`} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
               ) : (

@@ -96,6 +96,7 @@ function AdminCour() {
 
         <Chapitres
           chapitres={chapitres}
+          setChapitres={setChapitres}
           cour={cour}
           selectedChapitre={selectedChapitre}
           setSelectedChapitre={setSelectedChapitre}

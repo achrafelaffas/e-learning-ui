@@ -9,6 +9,7 @@ import {
 import { MatiereDTO } from "@/api";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import CardImage from "./CardImage";
 
 interface MatiereCardsProps {
   matieres: MatiereDTO[];
@@ -52,18 +53,14 @@ export function MatiereCards({ matieres }: MatiereCardsProps) {
                   </CardFooter>
                 </Card> */}
 
-              <Card className="w-full">
+              <Card className="w-full h-full flex flex-col">
                 <CardHeader>
                   <CardTitle>{matiere.nom}</CardTitle>
                 </CardHeader>
-                <CardContent className="w-full h-full overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover rounded-sm"
-                    src={`src/pages/images/${matiere.image}`}
-                    alt="image"
-                  />
+                <CardContent className="w-full h-40 overflow-hidden">
+                  <CardImage nameImage={matiere.image}/>
                 </CardContent>
-                <CardFooter className="flex flex-col gap-3">
+                <CardFooter className="flex flex-col gap-3 mt-auto">
                   <CardDescription>{matiere.description}</CardDescription>
                   <Button
                     onClick={() => handleButtonClick(matiere.id)}

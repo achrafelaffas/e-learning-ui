@@ -654,6 +654,64 @@ export const ChapitreRestApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
+         * @param {string} chapitre 
+         * @param {File} video 
+         * @param {File} pdf 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createChapitreWithVideoAndPdf: async (chapitre: string, video: File, pdf: File, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'chapitre' is not null or undefined
+            assertParamExists('createChapitreWithVideoAndPdf', 'chapitre', chapitre)
+            // verify required parameter 'video' is not null or undefined
+            assertParamExists('createChapitreWithVideoAndPdf', 'video', video)
+            // verify required parameter 'pdf' is not null or undefined
+            assertParamExists('createChapitreWithVideoAndPdf', 'pdf', pdf)
+            const localVarPath = `/chapitres/upload`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            if (chapitre !== undefined) {
+                localVarQueryParameter['chapitre'] = chapitre;
+            }
+
+
+            if (video !== undefined) { 
+                localVarFormParams.append('video', video as any);
+            }
+    
+            if (pdf !== undefined) { 
+                localVarFormParams.append('pdf', pdf as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -863,6 +921,20 @@ export const ChapitreRestApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} chapitre 
+         * @param {File} video 
+         * @param {File} pdf 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createChapitreWithVideoAndPdf(chapitre: string, video: File, pdf: File, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChapitreDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createChapitreWithVideoAndPdf(chapitre, video, pdf, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['ChapitreRestApi.createChapitreWithVideoAndPdf']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -942,6 +1014,17 @@ export const ChapitreRestApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
+         * @param {string} chapitre 
+         * @param {File} video 
+         * @param {File} pdf 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createChapitreWithVideoAndPdf(chapitre: string, video: File, pdf: File, options?: RawAxiosRequestConfig): AxiosPromise<ChapitreDTO> {
+            return localVarFp.createChapitreWithVideoAndPdf(chapitre, video, pdf, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1004,6 +1087,19 @@ export class ChapitreRestApi extends BaseAPI {
      */
     public createChapitre(chapitreDTO: ChapitreDTO, options?: RawAxiosRequestConfig) {
         return ChapitreRestApiFp(this.configuration).createChapitre(chapitreDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} chapitre 
+     * @param {File} video 
+     * @param {File} pdf 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ChapitreRestApi
+     */
+    public createChapitreWithVideoAndPdf(chapitre: string, video: File, pdf: File, options?: RawAxiosRequestConfig) {
+        return ChapitreRestApiFp(this.configuration).createChapitreWithVideoAndPdf(chapitre, video, pdf, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1529,11 +1625,15 @@ export const FileRestApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
+         * @param {string} fileName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFile: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/file`;
+        getFile: async (fileName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'fileName' is not null or undefined
+            assertParamExists('getFile', 'fileName', fileName)
+            const localVarPath = `/file/{fileName}`
+                .replace(`{${"fileName"}}`, encodeURIComponent(String(fileName)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1597,6 +1697,43 @@ export const FileRestApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {string} videoName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVideo: async (videoName: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'videoName' is not null or undefined
+            assertParamExists('getVideo', 'videoName', videoName)
+            const localVarPath = `/video/{videoName}`
+                .replace(`{${"videoName"}}`, encodeURIComponent(String(videoName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1609,11 +1746,12 @@ export const FileRestApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {string} fileName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFile(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFile(options);
+        async getFile(fileName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFile(fileName, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FileRestApi.getFile']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -1630,6 +1768,18 @@ export const FileRestApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['FileRestApi.getImage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {string} videoName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVideo(videoName: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<File>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVideo(videoName, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['FileRestApi.getVideo']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -1642,11 +1792,12 @@ export const FileRestApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
+         * @param {string} fileName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFile(options?: RawAxiosRequestConfig): AxiosPromise<File> {
-            return localVarFp.getFile(options).then((request) => request(axios, basePath));
+        getFile(fileName: string, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.getFile(fileName, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1656,6 +1807,15 @@ export const FileRestApiFactory = function (configuration?: Configuration, baseP
          */
         getImage(imageName: string, options?: RawAxiosRequestConfig): AxiosPromise<File> {
             return localVarFp.getImage(imageName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} videoName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVideo(videoName: string, options?: RawAxiosRequestConfig): AxiosPromise<File> {
+            return localVarFp.getVideo(videoName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1669,12 +1829,13 @@ export const FileRestApiFactory = function (configuration?: Configuration, baseP
 export class FileRestApi extends BaseAPI {
     /**
      * 
+     * @param {string} fileName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FileRestApi
      */
-    public getFile(options?: RawAxiosRequestConfig) {
-        return FileRestApiFp(this.configuration).getFile(options).then((request) => request(this.axios, this.basePath));
+    public getFile(fileName: string, options?: RawAxiosRequestConfig) {
+        return FileRestApiFp(this.configuration).getFile(fileName, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1686,6 +1847,17 @@ export class FileRestApi extends BaseAPI {
      */
     public getImage(imageName: string, options?: RawAxiosRequestConfig) {
         return FileRestApiFp(this.configuration).getImage(imageName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} videoName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FileRestApi
+     */
+    public getVideo(videoName: string, options?: RawAxiosRequestConfig) {
+        return FileRestApiFp(this.configuration).getVideo(videoName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

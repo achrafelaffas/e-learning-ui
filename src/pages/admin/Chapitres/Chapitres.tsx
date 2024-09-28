@@ -5,10 +5,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { ChapitreDTO, CoursDTO } from "@/api";
+import ChapitreAdd from "./ChapitreAdd";
 
 interface ChapitresProps {
   cour: CoursDTO;
   chapitres: ChapitreDTO[];
+  setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
   selectedChapitre: ChapitreDTO | null;
   setSelectedChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
   isQuizSelected: boolean; // Added this prop
@@ -19,6 +21,7 @@ interface ChapitresProps {
 export const Chapitres: React.FC<ChapitresProps> = ({
   cour,
   chapitres,
+  setChapitres,
   selectedChapitre,
   setSelectedChapitre,
   isQuizSelected, // Destructure isQuizSelected here
@@ -80,6 +83,9 @@ export const Chapitres: React.FC<ChapitresProps> = ({
               ) : (
                 <li>Aucun chapitre disponible</li>
               )}
+
+              {/* ajouter nouveau chapitre */}
+              <ChapitreAdd setChapitres={setChapitres}/>
 
               <Separator/>
 
