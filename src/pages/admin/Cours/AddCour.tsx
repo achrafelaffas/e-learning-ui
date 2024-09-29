@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from "react";
-import { CoursDTO } from "@/api";
+import { CoursDTO, MatiereDTO } from "@/api";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,7 @@ import useApi from "@/hooks/useApi";
 import { CopyPlus } from "lucide-react";
 
 interface AddCourProps {
-    matiere: CoursDTO;
+    matiere: MatiereDTO;
     setCours: React.Dispatch<React.SetStateAction<CoursDTO[]>>;
 }
 

@@ -85,7 +85,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
               )}
 
               {/* ajouter nouveau chapitre */}
-              <ChapitreAdd setChapitres={setChapitres}/>
+              <ChapitreAdd cour={cour} setChapitres={setChapitres}/>
 
               <Separator/>
 

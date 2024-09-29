@@ -1,5 +1,5 @@
-import { FormEvent, SyntheticEvent, useState } from "react";
-import { ChapitreDTO } from "@/api";
+import { FormEvent, SyntheticEvent, useEffect, useState } from "react";
+import { ChapitreDTO, CoursDTO } from "@/api";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
@@ -10,15 +10,23 @@ import useApi from "@/hooks/useApi";
 import { SquarePlus } from "lucide-react";
 
 interface ChapitreProps {
+    cour: CoursDTO;
     setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
 }
 
-function ChapitreAdd({ setChapitres }: ChapitreProps) {
+function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
     const [open, setOpen] = useState(false);
     const isDesktop = useMediaQuery("(min-width: 768px)");
-    const [newChapitre, setNewChapitre] = useState<ChapitreDTO>();
+    const [newChapitre, setNewChapitre] = useState<ChapitreDTO>({} as ChapitreDTO);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
+
+    useEffect(() => {
+        setNewChapitre((prevChapitre) => ({
+            ...prevChapitre,
+            cours: cour,
+        }));
+    }, [cour]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
@@ -28,18 +36,14 @@ function ChapitreAdd({ setChapitres }: ChapitreProps) {
         }));
     };
 
-    const handleFileChange = (e: FormEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement & {
-          files: FileList;
-        };
-        setSelectedFile(target.files[0]);
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement & { files: FileList };
+        setSelectedFile(target.files?.[0] || null);  // Use files[0] safely
     };
 
-    const handleVideoChange = (e: FormEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement & {
-          files: FileList;
-        };
-        setSelectedVideo(target.files[1]);
+    const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLInputElement & { files: FileList };
+        setSelectedVideo(target.files?.[0] || null);  // Use files[0] for the first file
     };
 
     return (
@@ -48,8 +52,8 @@ function ChapitreAdd({ setChapitres }: ChapitreProps) {
                 <Button
                     className={`w-full flex justify-between items-center bg-white text-black hover:bg-slate-100
                         border-dashed border-2 border-black `}
-                        onClick={() => setOpen(true)}
-                    >
+                    onClick={() => setOpen(true)}
+                >
                     <span className="text-left">Ajouter Nouveau Chapitre</span>
                     <SquarePlus className="h-5 w-5" />
                 </Button>
@@ -120,8 +124,8 @@ function ChapitreForm({
     selectedFile,
     selectedVideo,
 }: {
-    newChapitre: ChapitreDTO | undefined;
-    setNewChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | undefined>>;
+    newChapitre: ChapitreDTO;
+    setNewChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO>>;
     setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -135,8 +139,10 @@ function ChapitreForm({
     const handleSaveClick = async (e: SyntheticEvent) => {
         e.preventDefault();
 
+        console.log(newChapitre);
+        
         const chapitre = JSON.stringify(newChapitre);
-        if (selectedFile && selectedVideo && newChapitre) {
+        if (selectedFile && selectedVideo && chapitre) {
             try {
                 const reponse = await chapitreRestApi.createChapitreWithVideoAndPdf(chapitre, selectedVideo, selectedFile);
                 const createdChapitre = reponse.data;
@@ -152,30 +158,32 @@ function ChapitreForm({
     return (
         <form className="grid items-start gap-4" onSubmit={handleSaveClick}>
             <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="titre">titre du Chapitre</Label>
+                <Label htmlFor="titre">Titre du Chapitre</Label>
                 <Input
                     id="titre"
                     name="titre"
-                    value={newChapitre?.titre || ''}
+                    value={newChapitre.titre || ''}
                     onChange={handleInputChange}
                     placeholder="Titre du chapitre"
                 />
             </div>
             <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="image">Image</Label>
+                <Label htmlFor="contenu">Contenu (PDF)</Label>
                 <Input
                     type="file"
-                    id="image"
-                    name="image"
+                    id="contenu"
+                    name="contenu"
+                    accept="application/pdf"
                     onChange={handleFileChange}
                 />
             </div>
             <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="video">video</Label>
+                <Label htmlFor="video">Vidéo (MP4)</Label>
                 <Input
                     type="file"
                     id="video"
                     name="video"
+                    accept="video/*"
                     onChange={handleVideoChange}
                 />
             </div>
