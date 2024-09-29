@@ -18,8 +18,6 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
     const [open, setOpen] = useState(false);
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [newChapitre, setNewChapitre] = useState<ChapitreDTO>({} as ChapitreDTO);
-    const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
 
     useEffect(() => {
         setNewChapitre((prevChapitre) => ({
@@ -34,16 +32,6 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
             ...prevChapitre,
             [id]: value,
         }));
-    };
-
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement & { files: FileList };
-        setSelectedFile(target.files?.[0] || null);  // Use files[0] safely
-    };
-
-    const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement & { files: FileList };
-        setSelectedVideo(target.files?.[0] || null);  // Use files[0] for the first file
     };
 
     return (
@@ -74,10 +62,6 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
                             setChapitres={setChapitres}
                             setOpen={setOpen}
                             handleInputChange={handleInputChange}
-                            handleFileChange={handleFileChange}
-                            handleVideoChange={handleVideoChange}
-                            selectedFile={selectedFile}
-                            selectedVideo={selectedVideo}
                         />
                     </DialogContent>
                 </Dialog>
@@ -96,10 +80,6 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
                             setChapitres={setChapitres}
                             setOpen={setOpen}
                             handleInputChange={handleInputChange}
-                            handleFileChange={handleFileChange}
-                            handleVideoChange={handleVideoChange}
-                            selectedFile={selectedFile}
-                            selectedVideo={selectedVideo}
                         />
                         <DrawerFooter>
                             <DrawerClose asChild>
@@ -119,40 +99,37 @@ function ChapitreForm({
     setChapitres,
     setOpen,
     handleInputChange,
-    handleFileChange,
-    handleVideoChange,
-    selectedFile,
-    selectedVideo,
 }: {
     newChapitre: ChapitreDTO;
     setNewChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO>>;
     setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleVideoChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    selectedFile: File | null;
-    selectedVideo: File | null;
 }) {
     const { chapitreRestApi } = useApi();
 
-    const handleSaveClick = async (e: SyntheticEvent) => {
+    const handleSaveClick = async (e: FormEvent) => {
         e.preventDefault();
 
-        console.log(newChapitre);
+        if(!newChapitre){
+            console.error("New Chapitre is undefined.");
+            return;
+        }
+
+        const confirmSave = window.confirm("Êtes-vous sûr de vouloir enregistrer le chapitre?");
         
-        const chapitre = JSON.stringify(newChapitre);
-        if (selectedFile && selectedVideo && chapitre) {
+        if (confirmSave) {
             try {
-                const reponse = await chapitreRestApi.createChapitreWithVideoAndPdf(chapitre, selectedVideo, selectedFile);
+                const reponse = await chapitreRestApi.createChapitre(newChapitre);
                 const createdChapitre = reponse.data;
-                setChapitres((prevChapitres) => [...prevChapitres, createdChapitre]);
+                setChapitres((prevChapitre) => [...prevChapitre, createdChapitre]);
                 setNewChapitre({} as ChapitreDTO);
                 setOpen(false);
             } catch (error) {
                 console.error("Error creating chapitre:", error);
             }
         }
+        
     };
 
     return (
@@ -165,26 +142,6 @@ function ChapitreForm({
                     value={newChapitre.titre || ''}
                     onChange={handleInputChange}
                     placeholder="Titre du chapitre"
-                />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="contenu">Contenu (PDF)</Label>
-                <Input
-                    type="file"
-                    id="contenu"
-                    name="contenu"
-                    accept="application/pdf"
-                    onChange={handleFileChange}
-                />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="video">Vidéo (MP4)</Label>
-                <Input
-                    type="file"
-                    id="video"
-                    name="video"
-                    accept="video/*"
-                    onChange={handleVideoChange}
                 />
             </div>
             <Button type="submit">Enregistrer</Button>

@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { ChapitreDTO, CoursDTO } from "@/api";
-import ChapitreAdd from "./ChapitreAdd";
+import ChapitreAdd from "./AddNewObjects/ChapitreAdd";
 
 interface ChapitresProps {
   cour: CoursDTO;

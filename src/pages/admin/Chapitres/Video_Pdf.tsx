@@ -12,6 +12,10 @@ import {pdfjs} from 'react-pdf';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import CardVideo from "./getVideosAndPdfs/CardVideo";
 import CardPdf from "./getVideosAndPdfs/CardPdf";
+import VideoAdd from "./AddNewObjects/VideoAdd";
+import PdfAdd from "./AddNewObjects/PdfAdd";
+import PdfUpdate from "./UpdateObjects/PdfUpdate";
+import VideoUpdate from "./UpdateObjects/VideoUpdate";
 
 pdfjs. GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -21,12 +25,14 @@ pdfjs. GlobalWorkerOptions.workerSrc = new URL(
 
 interface VideoPdfProps {
   chapitre: ChapitreDTO | null;
+  setChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
+  setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
 }
 
-export function Video_Pdf({ chapitre }: VideoPdfProps) {
+export function Video_Pdf({ chapitre, setChapitre , setChapitres}: VideoPdfProps) {
 
   return (
-    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-110px)] overflow-y-auto">
+    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-115px)] overflow-y-auto">
       {/* Video Card */}
       
         <Card>
@@ -37,18 +43,21 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            {chapitre?.video ? (
-              <CardVideo nameVideo={chapitre?.video}/>
-              ) : (
-                <div>No video available for this chapter.</div> // Message si aucune vidéo n'est disponible
-              )}
+            <div className="grid grid-cols-[auto_max-content] font-mono text-sm shadow-sm">
+              {chapitre?.video ? (
+                <CardVideo nameVideo={chapitre?.video}/>
+                ) : (
+                  <VideoAdd setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
+                )}
+                <VideoUpdate setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
+              </div>
           </CardContent>
           <CardFooter />
         </Card>
       
 
       {/* PDF Card */}
-      {chapitre?.contenu ? (
+      
         <Card>
           <CardHeader className="pb-2">
             <CardTitle></CardTitle>
@@ -56,15 +65,20 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
           </CardHeader>
           <CardContent>
             {/* Logique pour le rendu du PDF */}
-            <div className="max-w-full">
+            {/* <div className="max-w-full">
               <CardPdf namePdf={chapitre.contenu}/>
+            </div> */}
+            <div className="grid grid-cols-[auto_max-content] rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+              {chapitre?.contenu ? (
+                <CardPdf namePdf={chapitre.contenu}/>
+                ) : (
+                  <PdfAdd setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
+                )}
+              <PdfUpdate setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
             </div>
-           
           </CardContent>
         </Card>
-      ) : (
-        <div>No PDF available for this chapter.</div> // Message si aucun PDF n'est disponible
-      )}
+      
     </div>
   );
 }

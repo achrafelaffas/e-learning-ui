@@ -91,7 +91,7 @@ function AdminCour() {
         {isQuizSelected ? (
           <Quiz quiz={quiz}/>
         ) : (
-          <Video_Pdf chapitre={selectedChapitre} />
+          <Video_Pdf setChapitres={setChapitres} setChapitre={setSelectedChapitre} chapitre={selectedChapitre} />
         )}
 
         <Chapitres
