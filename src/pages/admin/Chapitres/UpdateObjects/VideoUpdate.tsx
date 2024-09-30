@@ -11,15 +11,16 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem,
 import { MoreVertical, PencilLine, Trash2 } from "lucide-react";
 
 interface VideoProps {
-    chapitre: ChapitreDTO | null;
-    setChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
+    selectedChapitre: ChapitreDTO | null;
+    setSelectedChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
     setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
 }
 
-function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
+function VideoAdd({ selectedChapitre, setSelectedChapitre, setChapitres }: VideoProps) {
     const [open, setOpen] = useState(false);
     const isDesktop = useMediaQuery("(min-width: 768px)");
     const [selectedVideo, setSelectedVideo] = useState<File | null>(null);
+    const { chapitreRestApi } = useApi();
     // const [newChapitre, setNewChapitre] = useState<ChapitreDTO>({} as ChapitreDTO);
 
     // useEffect(() => {
@@ -31,7 +32,7 @@ function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { id, value } = e.target;
-        setChapitre((prevChapitre) => ({
+        setSelectedChapitre((prevChapitre) => ({
             ...prevChapitre,
             [id]: value,
         }));
@@ -41,6 +42,29 @@ function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
         const target = e.target as HTMLInputElement & { files: FileList };
         setSelectedVideo(target.files?.[0] || null);  // Use files[0] for the first file
     };
+
+    const deleteChapitreVideo = async (chapitreId: number | undefined) => {
+        if (window.confirm("Êtes-vous sûr de vouloir supprimer ce Video?")) {
+          try {
+            if(chapitreId && selectedChapitre){
+                const reponse = await chapitreRestApi.deleteChapitreVideo(chapitreId);
+                const updatedChapitre = reponse.data;
+                setSelectedChapitre((prevChapitre) => ({
+                    ...prevChapitre,
+                    ...updatedChapitre,
+                }));
+
+                setChapitres((prevChapitre) =>
+                    prevChapitre.map((chapitre) =>
+                    chapitre.id === chapitreId ? updatedChapitre : chapitre
+                    )
+                );
+            }
+          } catch (error) {
+            console.error('Error deleting Video:', error);
+          }
+        }
+      };
 
     return (
         <>
@@ -57,9 +81,7 @@ function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
                             <PencilLine className="mr-2 h-4 w-4" />
                             <span>Modifier</span>
                         </DropdownMenuItem>
-                        <DropdownMenuItem 
-                        // onClick={() => deleteMatiere(matiere.id)}
-                        >
+                        <DropdownMenuItem onClick={() => deleteChapitreVideo(selectedChapitre?.id)}>
                             <Trash2 className="mr-2 h-4 w-4 decoration-red-500" />
                             <span>Supprimer</span>
                         </DropdownMenuItem>
@@ -77,8 +99,8 @@ function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
                             </DialogDescription>
                         </DialogHeader>
                         <ChapitreForm
-                            selectedChapitre={chapitre}
-                            setselectedChapitre={setChapitre}
+                            selectedChapitre={selectedChapitre}
+                            setselectedChapitre={setSelectedChapitre}
                             setChapitres={setChapitres}
                             setOpen={setOpen}
                             handleInputChange={handleInputChange}
@@ -97,8 +119,8 @@ function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
                             </DrawerDescription>
                         </DrawerHeader>
                         <ChapitreForm
-                            selectedChapitre={chapitre}
-                            setselectedChapitre={setChapitre}
+                            selectedChapitre={selectedChapitre}
+                            setselectedChapitre={setSelectedChapitre}
                             setChapitres={setChapitres}
                             setOpen={setOpen}
                             handleInputChange={handleInputChange}

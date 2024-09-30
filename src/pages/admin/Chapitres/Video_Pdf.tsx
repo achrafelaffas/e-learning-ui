@@ -24,12 +24,12 @@ pdfjs. GlobalWorkerOptions.workerSrc = new URL(
 
 
 interface VideoPdfProps {
-  chapitre: ChapitreDTO | null;
-  setChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
+  selectedChapitre: ChapitreDTO | null;
+  setSelectedChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
   setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
 }
 
-export function Video_Pdf({ chapitre, setChapitre , setChapitres}: VideoPdfProps) {
+export function Video_Pdf({ selectedChapitre, setSelectedChapitre , setChapitres}: VideoPdfProps) {
 
   return (
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-115px)] overflow-y-auto">
@@ -37,19 +37,22 @@ export function Video_Pdf({ chapitre, setChapitre , setChapitres}: VideoPdfProps
       
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-4xl">{chapitre?.titre || "No Title"}</CardTitle>
+            <CardTitle className="text-4xl">{selectedChapitre?.titre || "No Title"}</CardTitle>
             <CardDescription>
-              {chapitre?.cours?.titre || "No course description available"}
+              {selectedChapitre?.cours?.titre || "No course description available"}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-[auto_max-content] font-mono text-sm shadow-sm">
-              {chapitre?.video ? (
-                <CardVideo nameVideo={chapitre?.video}/>
+              {selectedChapitre?.video ? (
+                <>
+                  <CardVideo nameVideo={selectedChapitre?.video}/>
+                  <VideoUpdate setChapitres={setChapitres} selectedChapitre={selectedChapitre} setSelectedChapitre={setSelectedChapitre}/>
+                </>
                 ) : (
-                  <VideoAdd setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
+                  <VideoAdd setChapitres={setChapitres} chapitre={selectedChapitre} setChapitre={setSelectedChapitre}/>
                 )}
-                <VideoUpdate setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
+                
               </div>
           </CardContent>
           <CardFooter />
@@ -69,12 +72,14 @@ export function Video_Pdf({ chapitre, setChapitre , setChapitres}: VideoPdfProps
               <CardPdf namePdf={chapitre.contenu}/>
             </div> */}
             <div className="grid grid-cols-[auto_max-content] rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
-              {chapitre?.contenu ? (
-                <CardPdf namePdf={chapitre.contenu}/>
+              {selectedChapitre?.contenu ? (
+                <>
+                  <CardPdf namePdf={selectedChapitre?.contenu}/>
+                  <PdfUpdate setChapitres={setChapitres} selectedChapitre={selectedChapitre} setSelectedChapitre={setSelectedChapitre}/>
+                </>
                 ) : (
-                  <PdfAdd setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
+                  <PdfAdd setChapitres={setChapitres} chapitre={selectedChapitre} setChapitre={setSelectedChapitre}/>
                 )}
-              <PdfUpdate setChapitres={setChapitres} chapitre={chapitre} setChapitre={setChapitre}/>
             </div>
           </CardContent>
         </Card>

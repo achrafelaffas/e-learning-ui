@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SquarePlay } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +6,10 @@ import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
 import { ChapitreDTO, CoursDTO } from "@/api";
 import ChapitreAdd from "./AddNewObjects/ChapitreAdd";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { MoreVertical, PencilLine, Trash2 } from "lucide-react";
+import useApi from "@/hooks/useApi";
+import UpdateChapitreDialog from "./UpdateObjects/UpdateChapitreDialog";
 
 interface ChapitresProps {
   cour: CoursDTO;
@@ -28,6 +32,10 @@ export const Chapitres: React.FC<ChapitresProps> = ({
   setIsQuizSelected,
   quizExists,
 }) => {
+  const [open, setOpen] = useState(false);
+  const [selectedUpdateChapitre, setSelectedUpdateChapitre] = useState<ChapitreDTO>();
+  const { chapitreRestApi } = useApi();
+
   // Set the first chapter by default when the component mounts
   useEffect(() => {
     if (chapitres.length > 0 && !selectedChapitre) {
@@ -43,6 +51,35 @@ export const Chapitres: React.FC<ChapitresProps> = ({
   const handleQuizClick = () => {
     setSelectedChapitre(null);
     setIsQuizSelected(true); // Select quiz
+  };
+
+  const deleteChapitre = async (chapitreId: number | undefined) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce chapitre?")) {
+      try {
+        if(chapitreId){
+            await chapitreRestApi.deleteChapitre(chapitreId);
+            
+            setChapitres(chapitres?.filter(chapitre => chapitre.id !== chapitreId));
+        }
+      } catch (error) {
+        console.error('Error deleting Video:', error);
+      }
+    }
+  };
+
+  const handleEditClick = (chapitre: ChapitreDTO) => {
+    setSelectedUpdateChapitre(chapitre);
+    setOpen(true);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedUpdateChapitre) {
+      const { id, value } = e.target;
+      setSelectedUpdateChapitre({
+        ...selectedUpdateChapitre,
+        [id]: value,
+      });
+    }
   };
 
   return (
@@ -66,7 +103,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
             <ul className="grid gap-3">
               {chapitres.length > 0 ? (
                 chapitres.map((chapitre, index) => (
-                  <li key={index} className="flex items-center justify-between">
+                  <li key={index} className="flex items-center justify-between grid-cols-[auto_max-content] font-mono text-sm shadow-sm">
                     <Button
                       className={`w-full flex justify-between items-center ${
                         selectedChapitre && selectedChapitre.id === chapitre.id && !isQuizSelected
@@ -78,6 +115,27 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                       <span className="text-left">{chapitre.titre}</span>
                       <SquarePlay className="h-5 w-5" />
                     </Button>
+
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start">
+                          <DropdownMenuGroup>
+                              <DropdownMenuItem onClick={() => handleEditClick(chapitre)}>
+                                  <PencilLine className="mr-2 h-4 w-4" />
+                                  <span>Modifier</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => deleteChapitre(chapitre?.id)}>
+                                  <Trash2 className="mr-2 h-4 w-4 decoration-red-500" />
+                                  <span>Supprimer</span>
+                              </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                  </DropdownMenu>
                   </li>
                 ))
               ) : (
@@ -112,6 +170,16 @@ export const Chapitres: React.FC<ChapitresProps> = ({
           </div>
         </CardFooter>
       </Card>
+
+      {/* updateForm */}
+      <UpdateChapitreDialog 
+          open={open}
+          selectedChapitre={selectedUpdateChapitre}
+          setChapitres={setChapitres} 
+          setOpen={setOpen}
+          handleInputChange={handleInputChange} 
+        />
+      
     </div>
   );
 };

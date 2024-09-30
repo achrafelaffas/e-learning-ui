@@ -9,8 +9,10 @@ import {
 } from "@/components/ui/card";
 
 import {pdfjs} from 'react-pdf';
-import PdfComp from "./PdfComponent";
+// import PdfComp from "./PdfComponent";
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
+import CardVideo from "./getVideosAndPdfs/CardVideo";
+import CardPdf from "./getVideosAndPdfs/CardPdf";
 
 pdfjs. GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -37,10 +39,7 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
           </CardHeader>
           <CardContent>
             {chapitre?.video ? (
-              <video width="100%" controls>
-                <source src={`src/pages/videos/${chapitre?.video}`} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <CardVideo nameVideo={chapitre?.video}/>
               ) : (
                 <div>No video available for this chapter.</div> // Message si aucune vidéo n'est disponible
               )}
@@ -50,7 +49,7 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
       
 
       {/* PDF Card */}
-      {chapitre?.contenu ? (
+      
         <Card>
           <CardHeader className="pb-2">
             <CardTitle></CardTitle>
@@ -58,15 +57,17 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
           </CardHeader>
           <CardContent>
             {/* Logique pour le rendu du PDF */}
+            {chapitre?.contenu ? (
             <div className="max-w-full">
-              <PdfComp pdfLink={chapitre.contenu}/>
+              <CardPdf namePdf={chapitre?.contenu}/>
             </div>
+            ) : (
+              <div>No content available for this chapter.</div> // Message si aucun PDF n'est disponible
+            )}
            
           </CardContent>
         </Card>
-      ) : (
-        <div>No PDF available for this chapter.</div> // Message si aucun PDF n'est disponible
-      )}
+      
     </div>
   );
 }
