@@ -14,6 +14,7 @@ import AdminCours from "./pages/admin/Cours/AdminCours";
 import AdminCour from "./pages/admin/Chapitres/AdminCour";
 
 const router = createBrowserRouter([
+
   { path: "/register", element: <Register /> },
   { path: "/activate", element: <Activate /> },
   { path: "/login", element: <Login /> },

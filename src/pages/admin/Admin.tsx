@@ -4,6 +4,8 @@ import { FormEvent, SyntheticEvent, useState } from "react";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 
 const Admin = () => {
+
+
   const config = new Configuration();
   const authHeader = useAuthHeader();
   if (authHeader) config.accessToken = authHeader.replace("Bearer ", "");
