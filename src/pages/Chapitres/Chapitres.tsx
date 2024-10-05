@@ -1,13 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SquarePlay } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { ChapitreDTO, CoursDTO } from "@/api";
+import { ChapitreDTO, ChapitreRestApi, Configuration, CoursDTO } from "@/api";
+import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 interface ChapitresProps {
-  cour: CoursDTO;
+  courId: number;
   chapitres: ChapitreDTO[];
   selectedChapitre: ChapitreDTO | null;
   setSelectedChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO | null>>;
@@ -16,31 +25,61 @@ interface ChapitresProps {
   quizExists: boolean;
 }
 
+interface User {
+  name: string;
+}
+
 export const Chapitres: React.FC<ChapitresProps> = ({
-  cour,
+  courId,
   chapitres,
   selectedChapitre,
   setSelectedChapitre,
-  isQuizSelected, // Destructure isQuizSelected here
+  isQuizSelected,
   setIsQuizSelected,
   quizExists,
 }) => {
-  // Set the first chapter by default when the component mounts
-  useEffect(() => {
-    if (chapitres.length > 0 && !selectedChapitre) {
-      setSelectedChapitre(chapitres[0]);
-    }
-  }, [chapitres, selectedChapitre, setSelectedChapitre]);
-
-  const handleChapitreClick = (chapitre: ChapitreDTO) => {
-    setSelectedChapitre(chapitre);
-    setIsQuizSelected(false); // Deselect quiz
-  };
-
   const handleQuizClick = () => {
     setSelectedChapitre(null);
-    setIsQuizSelected(true); // Select quiz
+    setIsQuizSelected(true);
   };
+
+  const config = new Configuration();
+  const authHeader = useAuthHeader();
+  if (authHeader) config.accessToken = authHeader.replace("Bearer ", "");
+  const chapitreApi = new ChapitreRestApi(config);
+  const [progress, setProgress] = useState(0);
+  const user = useAuthUser<User>();
+
+  const fecthProgress = async () => {
+    const response = await chapitreApi.getProgress(courId);
+    setProgress(response.data);
+  };
+
+  useEffect(() => {
+    fecthProgress();
+  }, []);
+
+  const handleChapitreClick = async (chapitre: ChapitreDTO) => {
+    setSelectedChapitre(chapitre);
+    setIsQuizSelected(false);
+    await chapitreApi
+      .completeChapter(chapitre.id!)
+      .then(() => fecthProgress())
+      .catch((e) => console.log(e));
+  };
+
+  useEffect(() => {
+    const selectFirstChapitre = async () => {
+      if (chapitres.length > 0 && !selectedChapitre) {
+        setSelectedChapitre(chapitres[0]);
+        await chapitreApi
+          .completeChapter(chapitres[0].id!)
+          .then(() => fecthProgress())
+          .catch((e) => console.log(e));
+      }
+    };
+    selectFirstChapitre();
+  }, [chapitres, selectedChapitre, setSelectedChapitre]);
 
   return (
     <div>
@@ -48,10 +87,10 @@ export const Chapitres: React.FC<ChapitresProps> = ({
         <CardHeader className="bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
-              Etudiant Nom&Prenom
+              {user?.name}
             </CardTitle>
             <CardDescription>Score 27%</CardDescription>
-            <Progress value={25} aria-label="25% increase" />
+            <Progress value={progress} />
           </div>
         </CardHeader>
         <Separator />
@@ -66,7 +105,9 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                   <li key={index} className="flex items-center justify-between">
                     <Button
                       className={`w-full flex justify-between items-center ${
-                        selectedChapitre && selectedChapitre.id === chapitre.id && !isQuizSelected
+                        selectedChapitre &&
+                        selectedChapitre.id === chapitre.id &&
+                        !isQuizSelected
                           ? "bg-black text-white"
                           : "bg-white text-black hover:bg-slate-100"
                       }`}
@@ -81,14 +122,15 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                 <li>Aucun chapitre disponible</li>
               )}
 
-              <Separator/>
+              <Separator />
 
-              {/* Quiz Button (only show if quiz exists) */}
               {quizExists && (
                 <li className="flex items-center justify-between">
                   <Button
                     className={`w-full flex justify-between items-center ${
-                      isQuizSelected ? "bg-black text-white" : "bg-white text-black hover:bg-slate-100"
+                      isQuizSelected
+                        ? "bg-black text-white"
+                        : "bg-white text-black hover:bg-slate-100"
                     }`}
                     onClick={handleQuizClick}
                   >

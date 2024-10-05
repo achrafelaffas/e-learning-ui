@@ -3,9 +3,16 @@ import { Chapitres } from "./Chapitres";
 import { Video_Pdf } from "./Video_Pdf";
 import Quiz from "./Quiz";
 import { useLocation } from "react-router-dom";
-import { ChapitreDTO, ChapitreRestApi, Configuration, CoursDTO, CoursRestApi, QuizDTO, QuizRestApi } from "@/api";
+import {
+  ChapitreDTO,
+  ChapitreRestApi,
+  Configuration,
+  CoursDTO,
+  CoursRestApi,
+  QuizDTO,
+  QuizRestApi,
+} from "@/api";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
-
 
 function Cour() {
   const config = new Configuration();
@@ -15,7 +22,7 @@ function Cour() {
   const quizApi = new QuizRestApi(config);
   const courApi = new CoursRestApi(config);
   const chapitreApi = new ChapitreRestApi(config);
-  
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const courIdStr = searchParams.get("courId");
@@ -26,7 +33,9 @@ function Cour() {
   const [chapitres, setChapitres] = useState<ChapitreDTO[]>([]);
   const [quiz, setQuiz] = useState<QuizDTO>({});
   const [cour, setCour] = useState<CoursDTO>({});
-  const [selectedChapitre, setSelectedChapitre] = useState<ChapitreDTO | null>(null);
+  const [selectedChapitre, setSelectedChapitre] = useState<ChapitreDTO | null>(
+    null
+  );
   const [isQuizSelected, setIsQuizSelected] = useState(false); // Make sure it's initialized
   const [quizExists, setQuizExists] = useState(false);
 
@@ -66,7 +75,6 @@ function Cour() {
     }
   }, []);
 
-  
   useEffect(() => {
     if (courId) {
       const fetchCour = async () => {
@@ -74,6 +82,7 @@ function Cour() {
         try {
           const response = await courApi.getCoursById(courId);
           setCour(response.data);
+          console.log(cour);
         } catch {
           setError("Cour not found");
         } finally {
@@ -83,20 +92,20 @@ function Cour() {
       fetchCour();
     }
   }, [courId]);
-    
+
   return (
     <>
       <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         {/* Render the correct component based on the selection */}
         {isQuizSelected ? (
-          <Quiz quiz={quiz}/>
+          <Quiz quiz={quiz} />
         ) : (
           <Video_Pdf chapitre={selectedChapitre} />
         )}
 
         <Chapitres
           chapitres={chapitres}
-          cour={cour}
+          courId={courId}
           selectedChapitre={selectedChapitre}
           setSelectedChapitre={setSelectedChapitre}
           isQuizSelected={isQuizSelected} // Pass isQuizSelected state

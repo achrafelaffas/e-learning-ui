@@ -85,7 +85,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
   return (
     <div>
       <Card className="overflow-hidden">
-        <CardHeader className="bg-muted/50">
+        {/* <CardHeader className="bg-muted/50">
           <div className="grid gap-0.5">
             <CardTitle className="group flex items-center gap-2 text-lg">
               Etudiant Nom&Prenom
@@ -93,7 +93,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
             <CardDescription>Score 27%</CardDescription>
             <Progress value={25} aria-label="25% increase" />
           </div>
-        </CardHeader>
+        </CardHeader> */}
         <Separator />
         {/* Chapitres */}
         <CardContent className="p-6 text-sm">
@@ -164,11 +164,11 @@ export const Chapitres: React.FC<ChapitresProps> = ({
             </ul>
           </div>
         </CardContent>
-        <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
+        {/* <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
           <div className="text-xs text-muted-foreground">
             Updated <time dateTime="2023-11-23">August 10, 2024</time>
           </div>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
 
       {/* updateForm */}
