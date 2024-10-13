@@ -87,7 +87,6 @@ export const Chapitres: React.FC<ChapitresProps> = ({
       try {
         if(quizId){
             await quizRestApi.deleteQuiz(quizId);
-            
             setQuiz(null);
         }
       } catch (error) {
