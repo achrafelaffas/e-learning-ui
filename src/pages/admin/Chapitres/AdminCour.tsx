@@ -24,7 +24,7 @@ function AdminCour() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [chapitres, setChapitres] = useState<ChapitreDTO[]>([]);
-  const [quiz, setQuiz] = useState<QuizDTO>({});
+  const [quiz, setQuiz] = useState<QuizDTO | null>(null);
   const [cour, setCour] = useState<CoursDTO>({});
   const [selectedChapitre, setSelectedChapitre] = useState<ChapitreDTO | null>(null);
   const [isQuizSelected, setIsQuizSelected] = useState(false); // Make sure it's initialized
@@ -89,7 +89,7 @@ function AdminCour() {
       <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
         {/* Render the correct component based on the selection */}
         {isQuizSelected ? (
-          <Quiz quiz={quiz}/>
+          <Quiz quiz={quiz} cour={cour} setQuiz={setQuiz} />
         ) : (
           <Video_Pdf setChapitres={setChapitres} setSelectedChapitre={setSelectedChapitre} selectedChapitre={selectedChapitre} />
         )}
@@ -103,6 +103,8 @@ function AdminCour() {
           isQuizSelected={isQuizSelected} // Pass isQuizSelected state
           setIsQuizSelected={setIsQuizSelected} // Pass setter for isQuizSelected
           quizExists={quizExists}
+          quiz={quiz}
+          setQuiz={setQuiz}
         />
       </main>
     </>

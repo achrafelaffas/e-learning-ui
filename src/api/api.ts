@@ -3110,14 +3110,18 @@ export const QuestionRestApiAxiosParamCreator = function (configuration?: Config
     return {
         /**
          * 
+         * @param {number} idQuiz 
          * @param {QuestionDTO} questionDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createQuestion: async (questionDTO: QuestionDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createQuestionByQuiz: async (idQuiz: number, questionDTO: QuestionDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idQuiz' is not null or undefined
+            assertParamExists('createQuestionByQuiz', 'idQuiz', idQuiz)
             // verify required parameter 'questionDTO' is not null or undefined
-            assertParamExists('createQuestion', 'questionDTO', questionDTO)
-            const localVarPath = `/questions`;
+            assertParamExists('createQuestionByQuiz', 'questionDTO', questionDTO)
+            const localVarPath = `/questions/{idQuiz}`
+                .replace(`{${"idQuiz"}}`, encodeURIComponent(String(idQuiz)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -3309,14 +3313,15 @@ export const QuestionRestApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @param {number} idQuiz 
          * @param {QuestionDTO} questionDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createQuestion(questionDTO: QuestionDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionDTO>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createQuestion(questionDTO, options);
+        async createQuestionByQuiz(idQuiz: number, questionDTO: QuestionDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuestionDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createQuestionByQuiz(idQuiz, questionDTO, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
-            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.createQuestion']?.[localVarOperationServerIndex]?.url;
+            const localVarOperationServerBasePath = operationServerMap['QuestionRestApi.createQuestionByQuiz']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -3379,12 +3384,13 @@ export const QuestionRestApiFactory = function (configuration?: Configuration, b
     return {
         /**
          * 
+         * @param {number} idQuiz 
          * @param {QuestionDTO} questionDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createQuestion(questionDTO: QuestionDTO, options?: RawAxiosRequestConfig): AxiosPromise<QuestionDTO> {
-            return localVarFp.createQuestion(questionDTO, options).then((request) => request(axios, basePath));
+        createQuestionByQuiz(idQuiz: number, questionDTO: QuestionDTO, options?: RawAxiosRequestConfig): AxiosPromise<QuestionDTO> {
+            return localVarFp.createQuestionByQuiz(idQuiz, questionDTO, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3434,13 +3440,14 @@ export const QuestionRestApiFactory = function (configuration?: Configuration, b
 export class QuestionRestApi extends BaseAPI {
     /**
      * 
+     * @param {number} idQuiz 
      * @param {QuestionDTO} questionDTO 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QuestionRestApi
      */
-    public createQuestion(questionDTO: QuestionDTO, options?: RawAxiosRequestConfig) {
-        return QuestionRestApiFp(this.configuration).createQuestion(questionDTO, options).then((request) => request(this.axios, this.basePath));
+    public createQuestionByQuiz(idQuiz: number, questionDTO: QuestionDTO, options?: RawAxiosRequestConfig) {
+        return QuestionRestApiFp(this.configuration).createQuestionByQuiz(idQuiz, questionDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -4,12 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { ChapitreDTO, CoursDTO } from "@/api";
+import { ChapitreDTO, CoursDTO, QuizDTO } from "@/api";
 import ChapitreAdd from "./AddNewObjects/ChapitreAdd";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { MoreVertical, PencilLine, Trash2 } from "lucide-react";
 import useApi from "@/hooks/useApi";
 import UpdateChapitreDialog from "./UpdateObjects/UpdateChapitreDialog";
+import QuizAdd from "./AddNewObjects/QuizAdd";
+import UpdateQuizDialog from "./UpdateObjects/UpdateQuizDialog";
 
 interface ChapitresProps {
   cour: CoursDTO;
@@ -20,6 +22,8 @@ interface ChapitresProps {
   isQuizSelected: boolean; // Added this prop
   setIsQuizSelected: React.Dispatch<React.SetStateAction<boolean>>;
   quizExists: boolean;
+  quiz: QuizDTO | null;
+  setQuiz : React.Dispatch<React.SetStateAction<QuizDTO | null>>;
 }
 
 export const Chapitres: React.FC<ChapitresProps> = ({
@@ -31,10 +35,15 @@ export const Chapitres: React.FC<ChapitresProps> = ({
   isQuizSelected, // Destructure isQuizSelected here
   setIsQuizSelected,
   quizExists,
+  quiz,
+  setQuiz
 }) => {
   const [open, setOpen] = useState(false);
+  const [openQuiz, setOpenQuiz] = useState(false);
   const [selectedUpdateChapitre, setSelectedUpdateChapitre] = useState<ChapitreDTO>();
+  const [selectedUpdateQuiz, setSelectedUpdateQuiz] = useState<QuizDTO>();
   const { chapitreRestApi } = useApi();
+  const { quizRestApi } = useApi();
 
   // Set the first chapter by default when the component mounts
   useEffect(() => {
@@ -42,6 +51,12 @@ export const Chapitres: React.FC<ChapitresProps> = ({
       setSelectedChapitre(chapitres[0]);
     }
   }, [chapitres, selectedChapitre, setSelectedChapitre]);
+
+  useEffect(() => {
+    if (quiz) {
+      setSelectedUpdateQuiz(quiz);
+    }
+  }, [quiz]);
 
   const handleChapitreClick = (chapitre: ChapitreDTO) => {
     setSelectedChapitre(chapitre);
@@ -62,7 +77,21 @@ export const Chapitres: React.FC<ChapitresProps> = ({
             setChapitres(chapitres?.filter(chapitre => chapitre.id !== chapitreId));
         }
       } catch (error) {
-        console.error('Error deleting Video:', error);
+        console.error('Error deleting chapitre:', error);
+      }
+    }
+  };
+
+  const deleteQuiz = async (quizId: number | undefined) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer ce quiz?")) {
+      try {
+        if(quizId){
+            await quizRestApi.deleteQuiz(quizId);
+            
+            setQuiz(null);
+        }
+      } catch (error) {
+        console.error('Error deleting quiz:', error);
       }
     }
   };
@@ -72,13 +101,28 @@ export const Chapitres: React.FC<ChapitresProps> = ({
     setOpen(true);
   };
 
+  const handleEditQuizClick = (quiz: QuizDTO) => {
+    setSelectedUpdateQuiz(quiz);
+    setOpenQuiz(true);
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (selectedUpdateChapitre) {
       const { id, value } = e.target;
-      setSelectedUpdateChapitre({
-        ...selectedUpdateChapitre,
+      setSelectedUpdateChapitre((prev) => ({
+        ...prev,
         [id]: value,
-      });
+      }));
+    }
+  };
+
+  const handleInputChangeQuiz = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedUpdateQuiz) {
+      const { id, value } = e.target;
+      setSelectedUpdateQuiz((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
     }
   };
 
@@ -135,7 +179,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                               </DropdownMenuItem>
                           </DropdownMenuGroup>
                       </DropdownMenuContent>
-                  </DropdownMenu>
+                    </DropdownMenu>
                   </li>
                 ))
               ) : (
@@ -148,7 +192,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
               <Separator/>
 
               {/* Quiz Button (only show if quiz exists) */}
-              {quizExists && (
+              { quiz ? (
                 <li className="flex items-center justify-between">
                   <Button
                     className={`w-full flex justify-between items-center ${
@@ -156,10 +200,34 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                     }`}
                     onClick={handleQuizClick}
                   >
-                    <span className="text-left">Quiz</span>
+                    <span className="text-left">{quiz?.titre}</span>
                     <SquarePlay className="h-5 w-5" />
                   </Button>
+
+                  <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start">
+                          <DropdownMenuGroup>
+                              <DropdownMenuItem onClick={() => handleEditQuizClick(quiz)}>
+                                  <PencilLine className="mr-2 h-4 w-4" />
+                                  <span>Modifier</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => deleteQuiz(quiz?.id)}>
+                                  <Trash2 className="mr-2 h-4 w-4 decoration-red-500" />
+                                  <span>Supprimer</span>
+                              </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+
                 </li>
+              ) : (
+                <QuizAdd cour={cour} setQuiz={setQuiz}/>
               )}
             </ul>
           </div>
@@ -179,6 +247,16 @@ export const Chapitres: React.FC<ChapitresProps> = ({
           setOpen={setOpen}
           handleInputChange={handleInputChange} 
         />
+
+      <UpdateQuizDialog
+        open={openQuiz}
+        selectedQuiz={selectedUpdateQuiz}
+        setQuiz={setQuiz}
+        setOpen={setOpenQuiz}
+        handleInputChange={handleInputChangeQuiz}
+      />
+
+        
       
     </div>
   );

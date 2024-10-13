@@ -89,7 +89,7 @@ export const Chapitres: React.FC<ChapitresProps> = ({
             <CardTitle className="group flex items-center gap-2 text-lg">
               {user?.name}
             </CardTitle>
-            <CardDescription>Score 27%</CardDescription>
+            <CardDescription>Score {progress}%</CardDescription>
             <Progress value={progress} />
           </div>
         </CardHeader>

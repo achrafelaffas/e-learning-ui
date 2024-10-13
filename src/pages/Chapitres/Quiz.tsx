@@ -24,18 +24,18 @@ interface QuizQuestion {
 
 export default function Quiz({ quiz }: QuizProps) {
 
+  // Prepare quiz questions with fallbacks for missing values
   const quizQuestions: QuizQuestion[] = quiz?.questions
-  ? quiz.questions
-      .map((data) => ({
-        question: data?.enonce || '', // default to an empty string if undefined
-        answers: data?.reponses?.map((answer) => ({
-          text: answer?.texte || '', // default to an empty string if undefined
-          isCorrect: answer?.estCorrect ?? false, // default to false if undefined
-        })) || [], // default to an empty array if undefined
-      }))
-      .filter((q) => q.question && q.answers.length > 0) // Filter out any incomplete questions or answers
-  : [];
-
+    ? quiz.questions
+        .map((data) => ({
+          question: data?.enonce || "", // default to an empty string if undefined
+          answers: data?.reponses?.map((answer) => ({
+            text: answer?.texte || "", // default to an empty string if undefined
+            isCorrect: answer?.estCorrect ?? false, // default to false if undefined
+          })) || [], // default to an empty array if undefined
+        }))
+        .filter((q) => q.question && q.answers.length > 0) // Filter out any incomplete questions or answers
+    : [];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
@@ -75,11 +75,16 @@ export default function Quiz({ quiz }: QuizProps) {
     <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
       <Card>
         <CardHeader>
-          <CardTitle>{quiz?.titre}</CardTitle>
+          <CardTitle>{quiz?.titre || "Quiz"}</CardTitle>
           <CardDescription>Testez vos connaissances</CardDescription>
         </CardHeader>
         <CardContent>
-          {showScore ? (
+          {quizQuestions.length === 0 ? (
+            <div className="text-center">
+              <h2 className="text-xl font-semibold mb-4">Aucune question disponible</h2>
+              <p className="text-gray-500">Ce quiz ne contient pas de questions pour le moment.</p>
+            </div>
+          ) : showScore ? (
             <div className="text-center">
               <h2 className="text-2xl font-bold mb-4">Quiz Terminé !</h2>
               <p className="text-xl mb-4">
@@ -90,7 +95,7 @@ export default function Quiz({ quiz }: QuizProps) {
                 className="w-full h-2 mb-2"
               />
               <p className="text-sm text-gray-500">
-                {(score / quizQuestions.length) * 100}% correct
+                {((score / quizQuestions.length) * 100).toFixed(2)}% correct
               </p>
             </div>
           ) : (

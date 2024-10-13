@@ -1,144 +1,142 @@
-import { useState } from "react";
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { Progress } from "@/components/ui/progress";
-import { QuizDTO } from "@/api";
+import { RadioGroup } from "@/components/ui/radio-group";
+import { CoursDTO, QuestionDTO, QuizDTO } from "@/api";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { count } from "console";
+import QuestionAdd from "./AddNewObjects/QuestionAdd";
+import UpdateQuestionDialog from "./UpdateObjects/UpdateQuestionDialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { MoreVertical, PencilLine, Trash2 } from "lucide-react";
+import useApi from "@/hooks/useApi";
+import { useState } from "react";
 
 interface QuizProps {
   quiz: QuizDTO | null;
+  setQuiz : React.Dispatch<React.SetStateAction<QuizDTO | null>>;
+  cour : CoursDTO;
 }
 
-interface QuizQuestion {
-  question: string;
-  answers: { text: string; isCorrect: boolean }[];
-}
+export default function Quiz({ quiz, setQuiz, cour }: QuizProps) {  
+  const [open, setOpen] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState<QuestionDTO>();
+  const { questionRestApi } = useApi();
 
-export default function Quiz({ quiz }: QuizProps) {
-
-  const quizQuestions: QuizQuestion[] = quiz?.questions
-  ? quiz.questions
-      .map((data) => ({
-        question: data?.enonce || '', // default to an empty string if undefined
-        answers: data?.reponses?.map((answer) => ({
-          text: answer?.texte || '', // default to an empty string if undefined
-          isCorrect: answer?.estCorrect ?? false, // default to false if undefined
-        })) || [], // default to an empty array if undefined
-      }))
-      .filter((q) => q.question && q.answers.length > 0) // Filter out any incomplete questions or answers
-  : [];
-
-
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
-
-  const handleAnswerSelect = (answer: string) => {
-    setSelectedAnswer(answer);
+  const handleEditClick = (question: QuestionDTO) => {
+    setSelectedQuestion(question);
+    setOpen(true);
   };
 
-  const handleNextQuestion = () => {
-    const isCorrectAnswer = quizQuestions[currentQuestion].answers.find(
-      (answer) => answer.text === selectedAnswer && answer.isCorrect
-    );
-
-    if (isCorrectAnswer) {
-      setScore(score + 1);
-    }
-
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < quizQuestions.length) {
-      setCurrentQuestion(nextQuestion);
-      setSelectedAnswer("");
-    } else {
-      setShowScore(true);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (selectedQuestion) {
+        const { value } = e.target; // Obtenez la valeur du champ
+        setSelectedQuestion({
+            ...selectedQuestion,
+            enonce: value, // Mettez à jour le champ enonce avec la nouvelle valeur
+        });
     }
   };
 
-  const restartQuiz = () => {
-    setCurrentQuestion(0);
-    setScore(0);
-    setShowScore(false);
-    setSelectedAnswer("");
+  
+  const deleteQuestion = async (questionId: number | undefined) => {
+    if (window.confirm("Êtes-vous sûr de vouloir supprimer cette question?")) {
+      try {
+        if(questionId){
+          await questionRestApi.deleteQuestion(questionId);
+          setQuiz(prevQuiz => ({
+            ...prevQuiz,
+            questions: prevQuiz?.questions?.filter(question => question.id !== questionId),
+          }));
+        }
+      } catch (error) {
+        console.error('Error deleting question:', error);
+      }
+    }
   };
 
   return (
-    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2">
-      <Card>
-        <CardHeader>
-          <CardTitle>{quiz?.titre}</CardTitle>
-          <CardDescription>Testez vos connaissances</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {showScore ? (
-            <div className="text-center">
-              <h2 className="text-2xl font-bold mb-4">Quiz Terminé !</h2>
-              <p className="text-xl mb-4">
-                Vous avez obtenu {score} sur {quizQuestions.length}
-              </p>
-              <Progress
-                value={(score / quizQuestions.length) * 100}
-                className="w-full h-2 mb-2"
-              />
-              <p className="text-sm text-gray-500">
-                {(score / quizQuestions.length) * 100}% correct
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="mb-4">
-                <p className="text-sm text-gray-500 mb-2">
-                  Question {currentQuestion + 1} sur {quizQuestions.length}
-                </p>
-                <Progress
-                  value={((currentQuestion + 1) / quizQuestions.length) * 100}
-                  className="w-full h-2"
-                />
+    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 pl-4 pr-8">
+      <Carousel className="w-full max-w-full">
+        <CarouselContent>
+          {quiz?.questions?.map((question, index) => (
+            <CarouselItem key={index} className="pt-1">
+              <div className="p-1">
+                <Card>
+                  <CardHeader className="relative">
+                    <div className="absolute right-4 top-4">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreVertical className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="start">
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem onClick={() => handleEditClick(question)}>
+                              <PencilLine className="mr-2 h-4 w-4" />
+                              <span>Modifier</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => deleteQuestion(question.id)}>
+                              <Trash2 className="mr-2 h-4 w-4 decoration-red-500" />
+                              <span>Supprimer</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                    <CardTitle>{quiz?.titre || "Quiz"}</CardTitle>
+                    <CardDescription>Testez vos connaissances</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-500 mb-2">
+                        Question {index + 1} sur {quiz.questions?.length}
+                      </p>
+                    </div>
+                    <h2 className="text-lg font-semibold mb-4">
+                      {question.enonce}
+                    </h2>
+                    <RadioGroup>
+                      {question.reponses?.map((answer, i) => (
+                        <div key={i} className="flex items-center space-x-2 mb-2">
+                          <p>
+                            {answer.texte}{" "}
+                            <span className="text-green-600 font-semibold">
+                              {answer.estCorrect ? "(correct)" : ""}
+                            </span>
+                          </p>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </CardContent>
+                </Card>
               </div>
-              <h2 className="text-lg font-semibold mb-4">
-                {quizQuestions[currentQuestion].question}
-              </h2>
-              <RadioGroup
-                value={selectedAnswer}
-                onValueChange={handleAnswerSelect}
-              >
-                {quizQuestions[currentQuestion].answers.map((answer, index) => (
-                  <div key={index} className="flex items-center space-x-2 mb-2">
-                    <RadioGroupItem value={answer.text} id={`answer-${index}`} />
-                    <Label htmlFor={`answer-${index}`}>{answer.text}</Label>
-                  </div>
-                ))}
-              </RadioGroup>
-            </>
-          )}
-        </CardContent>
-        <CardFooter>
-          {showScore ? (
-            <Button onClick={restartQuiz} className="w-full">
-              Recommencer le quiz
-            </Button>
-          ) : (
-            <Button
-              onClick={handleNextQuestion}
-              className="w-full"
-              disabled={!selectedAnswer}
-            >
-              {currentQuestion === quizQuestions.length - 1
-                ? "Terminer le quiz"
-                : "Question suivante"}
-            </Button>
-          )}
-        </CardFooter>
-      </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious />
+        <CarouselNext />
+      </Carousel>
+      <div className="flex justify-center mt-4">
+        <QuestionAdd quiz={quiz} setQuiz={setQuiz} />
+      </div>
+
+      <UpdateQuestionDialog 
+        open={open}
+        selectedQuestion={selectedQuestion}
+        setSelectedQuestion={setSelectedQuestion}
+        setQuiz={setQuiz}
+        setOpen={setOpen}
+        handleInputChange={handleInputChange}
+      />
+
     </div>
   );
 }
