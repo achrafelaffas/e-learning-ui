@@ -3,9 +3,16 @@ import { Chapitres } from "./Chapitres";
 import { Video_Pdf } from "./Video_Pdf";
 import Quiz from "./Quiz";
 import { useLocation } from "react-router-dom";
-import { ChapitreDTO, ChapitreRestApi, Configuration, CoursDTO, CoursRestApi, QuizDTO, QuizRestApi } from "@/api";
+import {
+  ChapitreDTO,
+  ChapitreRestApi,
+  Configuration,
+  CoursDTO,
+  CoursRestApi,
+  QuizDTO,
+  QuizRestApi,
+} from "@/api";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
-
 
 function AdminCour() {
   const config = new Configuration();
@@ -15,7 +22,7 @@ function AdminCour() {
   const quizApi = new QuizRestApi(config);
   const courApi = new CoursRestApi(config);
   const chapitreApi = new ChapitreRestApi(config);
-  
+
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const courIdStr = searchParams.get("courId");
@@ -26,7 +33,9 @@ function AdminCour() {
   const [chapitres, setChapitres] = useState<ChapitreDTO[]>([]);
   const [quiz, setQuiz] = useState<QuizDTO | null>(null);
   const [cour, setCour] = useState<CoursDTO>({});
-  const [selectedChapitre, setSelectedChapitre] = useState<ChapitreDTO | null>(null);
+  const [selectedChapitre, setSelectedChapitre] = useState<ChapitreDTO | null>(
+    null
+  );
   const [isQuizSelected, setIsQuizSelected] = useState(false); // Make sure it's initialized
   const [quizExists, setQuizExists] = useState(false);
 
@@ -66,7 +75,6 @@ function AdminCour() {
     }
   }, []);
 
-  
   useEffect(() => {
     if (courId) {
       const fetchCour = async () => {
@@ -83,29 +91,35 @@ function AdminCour() {
       fetchCour();
     }
   }, [courId]);
-    
+
   return (
     <>
-      <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {/* Render the correct component based on the selection */}
-        {isQuizSelected ? (
-          <Quiz quiz={quiz} cour={cour} setQuiz={setQuiz} />
-        ) : (
-          <Video_Pdf setChapitres={setChapitres} setSelectedChapitre={setSelectedChapitre} selectedChapitre={selectedChapitre} />
-        )}
-
-        <Chapitres
-          chapitres={chapitres}
-          setChapitres={setChapitres}
-          cour={cour}
-          selectedChapitre={selectedChapitre}
-          setSelectedChapitre={setSelectedChapitre}
-          isQuizSelected={isQuizSelected} // Pass isQuizSelected state
-          setIsQuizSelected={setIsQuizSelected} // Pass setter for isQuizSelected
-          quizExists={quizExists}
-          quiz={quiz}
-          setQuiz={setQuiz}
-        />
+      <main className="w-full flex flex-col lg:flex-row justify-between gap-3">
+        <div className="md:w-2/3 w-full">
+          {isQuizSelected ? (
+            <Quiz quiz={quiz} cour={cour} setQuiz={setQuiz} />
+          ) : (
+            <Video_Pdf
+              setChapitres={setChapitres}
+              setSelectedChapitre={setSelectedChapitre}
+              selectedChapitre={selectedChapitre}
+            />
+          )}
+        </div>
+        <div className="md:w-1/3 w-full">
+          <Chapitres
+            chapitres={chapitres}
+            setChapitres={setChapitres}
+            cour={cour}
+            selectedChapitre={selectedChapitre}
+            setSelectedChapitre={setSelectedChapitre}
+            isQuizSelected={isQuizSelected} // Pass isQuizSelected state
+            setIsQuizSelected={setIsQuizSelected} // Pass setter for isQuizSelected
+            quizExists={quizExists}
+            quiz={quiz}
+            setQuiz={setQuiz}
+          />
+        </div>
       </main>
     </>
   );

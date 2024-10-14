@@ -5,15 +5,15 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Progress } from "@/components/ui/progress";
-import { ChapitreDTO, ChapitreRestApi, Configuration, CoursDTO } from "@/api";
+import { ChapitreDTO, ChapitreRestApi, Configuration } from "@/api";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { cn } from "@/lib/utils";
 
 interface ChapitresProps {
   courId: number;
@@ -86,10 +86,11 @@ export const Chapitres: React.FC<ChapitresProps> = ({
       <Card className="overflow-hidden">
         <CardHeader className="bg-muted/50">
           <div className="grid gap-0.5">
+
             <CardTitle className="group flex items-center gap-2 text-lg">
               {user?.name}
             </CardTitle>
-            <CardDescription>Score {progress}%</CardDescription>
+            <CardDescription className="mb-2">Score {progress}%</CardDescription>
             <Progress value={progress} />
           </div>
         </CardHeader>
@@ -104,13 +105,14 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                 chapitres.map((chapitre, index) => (
                   <li key={index} className="flex items-center justify-between">
                     <Button
-                      className={`w-full flex justify-between items-center ${
+                      className={cn(
+                        "w-full flex justify-between items-center",
                         selectedChapitre &&
-                        selectedChapitre.id === chapitre.id &&
-                        !isQuizSelected
-                          ? "bg-black text-white"
-                          : "bg-white text-black hover:bg-slate-100"
-                      }`}
+                          selectedChapitre.id === chapitre.id &&
+                          !isQuizSelected
+                          ? "bg-primary"
+                          : "bg-secondary text-primary hover:bg-primary hover:text-white hover:dark:text-secondary"
+                      )}
                       onClick={() => handleChapitreClick(chapitre)}
                     >
                       <span className="text-left">{chapitre.titre}</span>
@@ -129,8 +131,8 @@ export const Chapitres: React.FC<ChapitresProps> = ({
                   <Button
                     className={`w-full flex justify-between items-center ${
                       isQuizSelected
-                        ? "bg-black text-white"
-                        : "bg-white text-black hover:bg-slate-100"
+                        ? "bg-primary"
+                        : "bg-secondary text-primary hover:bg-primary hover:text-white hover:dark:text-secondary"
                     }`}
                     onClick={handleQuizClick}
                   >
@@ -142,11 +144,6 @@ export const Chapitres: React.FC<ChapitresProps> = ({
             </ul>
           </div>
         </CardContent>
-        <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
-          <div className="text-xs text-muted-foreground">
-            Updated <time dateTime="2023-11-23">August 10, 2024</time>
-          </div>
-        </CardFooter>
       </Card>
     </div>
   );

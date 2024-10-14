@@ -10,7 +10,7 @@ const CardPdf = ({ namePdf }: CardPdfProps) => {
   const [pdfURL, setPdfURL] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const [numPages, setNumPages] = useState<number>();
   const [containerWidth, setContainerWidth] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ const CardPdf = ({ namePdf }: CardPdfProps) => {
   useEffect(() => {
     // If namePdf is undefined, don't fetch and set a default placeholder
     if (!namePdf) {
-      setPdfURL(undefined);  // Option to show a default empty state
+      setPdfURL(undefined); // Option to show a default empty state
       setLoading(false); // Stop loading since there's no pdf to fetch
       return;
     }
@@ -32,7 +32,7 @@ const CardPdf = ({ namePdf }: CardPdfProps) => {
 
         // Fetch the pdf as a blob
         const response = await fileRestApi.getFile(namePdf, {
-          responseType: 'blob', // Ensure the response is a blob
+          responseType: "blob", // Ensure the response is a blob
         });
 
         // console.log("API response:", response);
@@ -61,15 +61,15 @@ const CardPdf = ({ namePdf }: CardPdfProps) => {
     };
   }, [fileRestApi, namePdf]); // namePdf is now a dependency
 
-function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }): void {
     setNumPages(numPages);
-}
+  }
 
-useEffect(() => {
+  useEffect(() => {
     function updateWidth() {
-        if (containerRef.current) {
-            setContainerWidth(containerRef.current.offsetWidth * 0.97); // Set to 80% of the container width
-        }
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth * 0.97); // Set to 80% of the container width
+      }
     }
 
     // Update the width when the component mounts and on window resize
@@ -78,7 +78,7 @@ useEffect(() => {
 
     // Cleanup event listener on unmount
     return () => window.removeEventListener("resize", updateWidth);
-}, []);
+  }, []);
 
   return (
     <>
@@ -87,18 +87,24 @@ useEffect(() => {
       ) : error ? (
         <p>{error}</p>
       ) : pdfURL ? (
-        <div ref={containerRef} className="max-w-full">
-            <Document className="max-w-full" file={pdfURL} onLoadSuccess={onDocumentLoadSuccess}>
-                {Array.from({ length: numPages || 0 }, (_, i) => i + 1).map((page) => (
-                    <Page
-                        key={page}
-                        pageNumber={page}
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        width={containerWidth} // Set dynamic width based on parent container
-                    />
-                ))}
-            </Document>
+        <div ref={containerRef}>
+          <Document
+            className="w-full"
+            file={pdfURL}
+            onLoadSuccess={onDocumentLoadSuccess}
+          >
+            {Array.from({ length: numPages || 0 }, (_, i) => i + 1).map(
+              (page) => (
+                <Page
+                  key={page}
+                  pageNumber={page}
+                  renderTextLayer={false}
+                  renderAnnotationLayer={false}
+                  width={containerWidth} // Set dynamic width based on parent container
+                />
+              )
+            )}
+          </Document>
         </div>
       ) : (
         <img

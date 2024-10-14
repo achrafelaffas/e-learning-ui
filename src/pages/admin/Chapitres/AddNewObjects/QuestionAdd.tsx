@@ -1,5 +1,5 @@
-import { FormEvent, useEffect, useState } from "react";
-import { QuestionDTO, CoursDTO, ReponseDTO, QuizDTO } from "@/api";
+import { FormEvent, useState } from "react";
+import { QuestionDTO, ReponseDTO, QuizDTO } from "@/api";
 import {
   Dialog,
   DialogContent,
@@ -22,7 +22,6 @@ import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "usehooks-ts";
 import useApi from "@/hooks/useApi";
 import { SquarePlus } from "lucide-react";
-import Quiz from "../Quiz";
 
 interface QuestionProps {
   quiz: QuizDTO | null;

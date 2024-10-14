@@ -95,23 +95,25 @@ function Cour() {
 
   return (
     <>
-      <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-        {/* Render the correct component based on the selection */}
-        {isQuizSelected ? (
-          <Quiz quiz={quiz} />
-        ) : (
-          <Video_Pdf chapitre={selectedChapitre} />
-        )}
-
-        <Chapitres
-          chapitres={chapitres}
-          courId={courId}
-          selectedChapitre={selectedChapitre}
-          setSelectedChapitre={setSelectedChapitre}
-          isQuizSelected={isQuizSelected} // Pass isQuizSelected state
-          setIsQuizSelected={setIsQuizSelected} // Pass setter for isQuizSelected
-          quizExists={quizExists}
-        />
+      <main className="w-full flex flex-col lg:flex-row justify-between gap-3">
+        <div className="md:w-2/3 w-full">
+          {isQuizSelected ? (
+            <Quiz quiz={quiz} />
+          ) : (
+            <Video_Pdf chapitre={selectedChapitre} />
+          )}
+        </div>
+        <div className="md:w-1/3 w-full">
+          <Chapitres
+            chapitres={chapitres}
+            courId={courId}
+            selectedChapitre={selectedChapitre}
+            setSelectedChapitre={setSelectedChapitre}
+            isQuizSelected={isQuizSelected} // Pass isQuizSelected state
+            setIsQuizSelected={setIsQuizSelected} // Pass setter for isQuizSelected
+            quizExists={quizExists}
+          />
+        </div>
       </main>
     </>
   );

@@ -27,10 +27,10 @@ interface VideoPdfProps {
 export function Video_Pdf({ chapitre }: VideoPdfProps) {
 
   return (
-    <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 max-h-[calc(100vh-100px)] overflow-y-auto">
+    <Card className="w-full grid gap-6 overflow-scroll h-[80vh] hide-scrollbar p-2">
       {/* Video Card */}
       
-        <Card>
+        <Card className="border-0">
           <CardHeader className="pb-2">
             <CardTitle className="text-4xl">{chapitre?.titre || "No Title"}</CardTitle>
             <CardDescription>
@@ -50,7 +50,7 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
 
       {/* PDF Card */}
       
-        <Card>
+        <Card className="border-0">
           <CardHeader className="pb-2">
             <CardTitle></CardTitle>
             <CardDescription></CardDescription>
@@ -68,6 +68,6 @@ export function Video_Pdf({ chapitre }: VideoPdfProps) {
           </CardContent>
         </Card>
       
-    </div>
+    </Card>
   );
 }

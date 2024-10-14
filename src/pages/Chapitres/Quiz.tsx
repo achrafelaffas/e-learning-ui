@@ -23,16 +23,16 @@ interface QuizQuestion {
 }
 
 export default function Quiz({ quiz }: QuizProps) {
-
   // Prepare quiz questions with fallbacks for missing values
   const quizQuestions: QuizQuestion[] = quiz?.questions
     ? quiz.questions
         .map((data) => ({
           question: data?.enonce || "", // default to an empty string if undefined
-          answers: data?.reponses?.map((answer) => ({
-            text: answer?.texte || "", // default to an empty string if undefined
-            isCorrect: answer?.estCorrect ?? false, // default to false if undefined
-          })) || [], // default to an empty array if undefined
+          answers:
+            data?.reponses?.map((answer) => ({
+              text: answer?.texte || "", // default to an empty string if undefined
+              isCorrect: answer?.estCorrect ?? false, // default to false if undefined
+            })) || [], // default to an empty array if undefined
         }))
         .filter((q) => q.question && q.answers.length > 0) // Filter out any incomplete questions or answers
     : [];
@@ -81,8 +81,12 @@ export default function Quiz({ quiz }: QuizProps) {
         <CardContent>
           {quizQuestions.length === 0 ? (
             <div className="text-center">
-              <h2 className="text-xl font-semibold mb-4">Aucune question disponible</h2>
-              <p className="text-gray-500">Ce quiz ne contient pas de questions pour le moment.</p>
+              <h2 className="text-xl font-semibold mb-4">
+                Aucune question disponible
+              </h2>
+              <p className="text-gray-500">
+                Ce quiz ne contient pas de questions pour le moment.
+              </p>
             </div>
           ) : showScore ? (
             <div className="text-center">
@@ -118,7 +122,10 @@ export default function Quiz({ quiz }: QuizProps) {
               >
                 {quizQuestions[currentQuestion].answers.map((answer, index) => (
                   <div key={index} className="flex items-center space-x-2 mb-2">
-                    <RadioGroupItem value={answer.text} id={`answer-${index}`} />
+                    <RadioGroupItem
+                      value={answer.text}
+                      id={`answer-${index}`}
+                    />
                     <Label htmlFor={`answer-${index}`}>{answer.text}</Label>
                   </div>
                 ))}

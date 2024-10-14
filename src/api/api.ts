@@ -200,6 +200,25 @@ export interface ProgressDTO {
 /**
  * 
  * @export
+ * @interface ProgressPerCoursDTO
+ */
+export interface ProgressPerCoursDTO {
+    /**
+     * 
+     * @type {CoursDTO}
+     * @memberof ProgressPerCoursDTO
+     */
+    'cours'?: CoursDTO;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProgressPerCoursDTO
+     */
+    'progress'?: number;
+}
+/**
+ * 
+ * @export
  * @interface QuestionDTO
  */
 export interface QuestionDTO {
@@ -2477,6 +2496,43 @@ export const MatiereRestApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
+         * @param {string} keyword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        searchMatieres: async (keyword: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'keyword' is not null or undefined
+            assertParamExists('searchMatieres', 'keyword', keyword)
+            const localVarPath = `/matieres/search/{keyword}`
+                .replace(`{${"keyword"}}`, encodeURIComponent(String(keyword)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {MatiereDTO} matiereDTO 
          * @param {*} [options] Override http request option.
@@ -2578,6 +2634,18 @@ export const MatiereRestApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} keyword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async searchMatieres(keyword: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MatiereDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.searchMatieres(keyword, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['MatiereRestApi.searchMatieres']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {MatiereDTO} matiereDTO 
          * @param {*} [options] Override http request option.
@@ -2634,6 +2702,15 @@ export const MatiereRestApiFactory = function (configuration?: Configuration, ba
          */
         getMatiereById(id: number, options?: RawAxiosRequestConfig): AxiosPromise<MatiereDTO> {
             return localVarFp.getMatiereById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} keyword 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        searchMatieres(keyword: string, options?: RawAxiosRequestConfig): AxiosPromise<Array<MatiereDTO>> {
+            return localVarFp.searchMatieres(keyword, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2697,6 +2774,17 @@ export class MatiereRestApi extends BaseAPI {
      */
     public getMatiereById(id: number, options?: RawAxiosRequestConfig) {
         return MatiereRestApiFp(this.configuration).getMatiereById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} keyword 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MatiereRestApi
+     */
+    public searchMatieres(keyword: string, options?: RawAxiosRequestConfig) {
+        return MatiereRestApiFp(this.configuration).searchMatieres(keyword, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -3689,6 +3777,47 @@ export const QuizRestApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 
          * @param {number} id 
+         * @param {string} mark 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateMark: async (id: number, mark: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateMark', 'id', id)
+            // verify required parameter 'mark' is not null or undefined
+            assertParamExists('updateMark', 'mark', mark)
+            const localVarPath = `/quizs/marks/{id}/{mark}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"mark"}}`, encodeURIComponent(String(mark)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
          * @param {QuizDTO} quizDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3801,6 +3930,19 @@ export const QuizRestApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @param {number} id 
+         * @param {string} mark 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateMark(id: number, mark: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMark(id, mark, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['QuizRestApi.updateMark']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} id 
          * @param {QuizDTO} quizDTO 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3864,6 +4006,16 @@ export const QuizRestApiFactory = function (configuration?: Configuration, baseP
          */
         getQuizById(id: number, options?: RawAxiosRequestConfig): AxiosPromise<QuizDTO> {
             return localVarFp.getQuizById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {string} mark 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateMark(id: number, mark: string, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateMark(id, mark, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -3937,6 +4089,18 @@ export class QuizRestApi extends BaseAPI {
      */
     public getQuizById(id: number, options?: RawAxiosRequestConfig) {
         return QuizRestApiFp(this.configuration).getQuizById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} id 
+     * @param {string} mark 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof QuizRestApi
+     */
+    public updateMark(id: number, mark: string, options?: RawAxiosRequestConfig) {
+        return QuizRestApiFp(this.configuration).updateMark(id, mark, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -4337,6 +4501,107 @@ export class ReponseRestApi extends BaseAPI {
      */
     public updateReponse(id: number, reponseDTO: ReponseDTO, options?: RawAxiosRequestConfig) {
         return ReponseRestApiFp(this.configuration).updateReponse(id, reponseDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * StatistiqueRestApi - axios parameter creator
+ * @export
+ */
+export const StatistiqueRestApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProgressPerCours: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/statistiques`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * StatistiqueRestApi - functional programming interface
+ * @export
+ */
+export const StatistiqueRestApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = StatistiqueRestApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProgressPerCours(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProgressPerCoursDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProgressPerCours(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StatistiqueRestApi.getProgressPerCours']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * StatistiqueRestApi - factory interface
+ * @export
+ */
+export const StatistiqueRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = StatistiqueRestApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProgressPerCours(options?: RawAxiosRequestConfig): AxiosPromise<Array<ProgressPerCoursDTO>> {
+            return localVarFp.getProgressPerCours(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * StatistiqueRestApi - object-oriented interface
+ * @export
+ * @class StatistiqueRestApi
+ * @extends {BaseAPI}
+ */
+export class StatistiqueRestApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatistiqueRestApi
+     */
+    public getProgressPerCours(options?: RawAxiosRequestConfig) {
+        return StatistiqueRestApiFp(this.configuration).getProgressPerCours(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
