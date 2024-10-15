@@ -2,7 +2,6 @@ import { GearIcon } from "@radix-ui/react-icons";
 import { BookCopy, FileChartPie } from "lucide-react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { Link, useNavigate } from "react-router-dom";
-import { DropdownMenuSeparator } from "./ui/dropdown-menu";
 import { useEffect } from "react";
 
 interface AuthUser {
@@ -19,6 +18,9 @@ const Navbar = () => {
   useEffect(() => {
     if (!user?.isAdmin) {
       navigate("/", { replace: true });
+    }
+    if (user?.isAdmin) {
+      navigate("/admin", { replace: true });
     }
   }, []);
 

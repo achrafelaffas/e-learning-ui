@@ -8,13 +8,11 @@ import Cour from "./pages/Chapitres/Cour";
 import Cours from "./pages/Cours/Cours";
 import Matieres from "./pages/Matieres/Matieres";
 import RequireAuth from "@auth-kit/react-router/RequireAuth";
-import Admin from "./pages/admin/Admin";
 import AdminMatieres from "./pages/admin/Matieres/AdminMatieres";
 import AdminCours from "./pages/admin/Cours/AdminCours";
 import AdminCour from "./pages/admin/Chapitres/AdminCour";
 
 const router = createBrowserRouter([
-
   { path: "/register", element: <Register /> },
   { path: "/activate", element: <Activate /> },
   { path: "/login", element: <Login /> },
@@ -28,13 +26,13 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "/chapitres", element: <Cour /> },
-      { path: "/cours", element: <Cours/> },
+      { path: "/cours", element: <Cours /> },
       { path: "/matieres", element: <Matieres /> },
 
-      { path: "/admin", element: <Admin /> },
+      { path: "/admin", element: <AdminMatieres /> },
       { path: "/admin/matieres", element: <AdminMatieres /> },
-      { path:"/admin/cours", element: <AdminCours/> },
-      { path:"/admin/chapitres", element: <AdminCour/> },
+      { path: "/admin/cours", element: <AdminCours /> },
+      { path: "/admin/chapitres", element: <AdminCour /> },
     ],
   },
 ]);

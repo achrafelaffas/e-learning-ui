@@ -64,9 +64,9 @@ const Login = () => {
         });
 
         if (isAdmin === true) {
-          navigate("/admin");
+          navigate("/admin/matieres");
         } else {
-          navigate("/");
+          navigate("/matieres");
         }
       },
       (error) => console.error(error)
