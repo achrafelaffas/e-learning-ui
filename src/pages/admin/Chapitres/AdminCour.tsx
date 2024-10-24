@@ -13,6 +13,7 @@ import {
   QuizRestApi,
 } from "@/api";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import { BreadcrumbDemo } from "@/components/BreadCrumbCour";
 
 function AdminCour() {
   const config = new Configuration();
@@ -94,6 +95,7 @@ function AdminCour() {
 
   return (
     <>
+      <BreadcrumbDemo/>
       <main className="w-full flex flex-col lg:flex-row justify-between gap-3">
         <div className="md:w-2/3 w-full">
           {isQuizSelected ? (

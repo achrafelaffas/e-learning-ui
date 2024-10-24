@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Configuration, CoursDTO, CoursRestApi, MatiereDTO, MatiereRestApi } from "@/api";
 import CourCollapsible from "./CourCollapsible";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
+import { BreadcrumbDemo } from "@/components/BreadCrumbMatiere";
 
 
 function Cours() {
@@ -60,6 +61,7 @@ function Cours() {
 
   return (
     <>
+    <BreadcrumbDemo/>
       <main className="">
         {isLoading ? (
           <div>Loading...</div>
