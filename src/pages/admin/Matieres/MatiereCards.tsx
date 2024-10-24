@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MatiereDTO } from "@/api";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, MoreVertical, PencilLine, Trash2 } from "lucide-react";
+import { MoreHorizontal, PencilLine, Trash2 } from "lucide-react";
 import CardImage from "./CardImage";
 import { useState } from "react";
 import UpdateMatiereDialog from "./UpdateMatiereDialog";
@@ -35,6 +28,7 @@ export function MatiereCards({ matieres, setMatieres }: MatiereCardsProps) {
   const navigate = useNavigate();
 
   const handleEditClick = (matiere: MatiereDTO) => {
+    console.log("Hello");
     setSelectedMatiere(matiere);
     setOpen(true);
   };
@@ -70,14 +64,11 @@ export function MatiereCards({ matieres, setMatieres }: MatiereCardsProps) {
     <>
       <MatiereAddCard setMatieres={setMatieres} />
 
-      <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {matieres.length > 0 ? (
           matieres?.map((matiere, index) => (
             <div key={index} className="w-full h-full flex flex-col">
-              <Card
-                className="cursor-pointer"
-                onClick={() => handleButtonClick(matiere.id)}
-              >
+              <Card className="cursor-pointer">
                 <CardHeader className="flex flex-row justify-between items-center">
                   <CardTitle>{matiere.nom}</CardTitle>
                   <div>
@@ -111,7 +102,10 @@ export function MatiereCards({ matieres, setMatieres }: MatiereCardsProps) {
                     </DropdownMenu>
                   </div>
                 </CardHeader>
-                <CardContent className="w-full h-40 overflow-hidden">
+                <CardContent
+                  className="w-full h-40 overflow-hidden"
+                  onClick={() => handleButtonClick(matiere.id)}
+                >
                   <CardImage nameImage={matiere.image} />
                 </CardContent>
               </Card>

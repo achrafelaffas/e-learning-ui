@@ -62,24 +62,22 @@ const Matieres = () => {
   return (
     <>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(submit)}
-          className="flex flex-row justify-between gap-3 lg:w-1/3 w-full mb-4"
-        >
+        <form className="flex flex-row justify-between gap-3 lg:w-1/3 w-full mb-4">
           <FormField
             control={form.control}
             name="keyword"
             render={({ field }) => (
               <FormItem className="w-3/4">
                 <FormControl>
-                  <Input placeholder="Search matieres..." {...field} />
+                  <Input
+                    placeholder="Search matieres..."
+                    {...field}
+                    onKeyUp={form.handleSubmit(submit)}
+                  />
                 </FormControl>
               </FormItem>
             )}
           />
-          <Button className="w-1/4" size="icon">
-            <Search className="h-4 w-4" />
-          </Button>
         </form>
       </Form>
       <main>

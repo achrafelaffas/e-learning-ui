@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MatiereDTO } from "@/api";
 import { useNavigate } from "react-router-dom";
 import CardImage from "./CardImage";
@@ -16,7 +16,7 @@ export function MatiereCards({ matieres }: MatiereCardsProps) {
 
   return (
     <>
-      <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
         {matieres.map((matiere, index) => (
           <div key={index} className="w-full h-full flex flex-col">
             <Card
@@ -25,6 +25,7 @@ export function MatiereCards({ matieres }: MatiereCardsProps) {
             >
               <CardHeader>
                 <CardTitle>{matiere.nom}</CardTitle>
+                <CardDescription>{matiere.description}</CardDescription>
               </CardHeader>
               <CardContent className="w-full h-40 overflow-hidden">
                 <CardImage nameImage={matiere.image} />

@@ -1,4 +1,14 @@
-import { Configuration, MatiereRestApi, CoursRestApi, ChapitreRestApi, QuizRestApi, ReponseRestApi, QuestionRestApi, FileRestApi } from "@/api";
+import {
+  Configuration,
+  MatiereRestApi,
+  CoursRestApi,
+  ChapitreRestApi,
+  QuizRestApi,
+  ReponseRestApi,
+  QuestionRestApi,
+  FileRestApi,
+  StatistiqueRestApi,
+} from "@/api";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import { useMemo } from "react";
 
@@ -6,7 +16,8 @@ const useApi = () => {
   const authHeader = useAuthHeader();
   const config = useMemo(() => {
     const configuration = new Configuration();
-    if (authHeader) configuration.accessToken = authHeader.replace("Bearer ", "");
+    if (authHeader)
+      configuration.accessToken = authHeader.replace("Bearer ", "");
     return configuration;
   }, [authHeader]);
 
@@ -17,8 +28,21 @@ const useApi = () => {
   const reponseRestApi = useMemo(() => new ReponseRestApi(config), [config]);
   const questionRestApi = useMemo(() => new QuestionRestApi(config), [config]);
   const fileRestApi = useMemo(() => new FileRestApi(config), [config]);
+  const statistiqueRestApi = useMemo(
+    () => new StatistiqueRestApi(config),
+    [config]
+  );
 
-  return { matiereApi, coursRestApi, chapitreRestApi, quizRestApi, reponseRestApi, questionRestApi, fileRestApi };
+  return {
+    matiereApi,
+    coursRestApi,
+    chapitreRestApi,
+    quizRestApi,
+    reponseRestApi,
+    questionRestApi,
+    fileRestApi,
+    statistiqueRestApi
+  };
 };
 
 export default useApi;
