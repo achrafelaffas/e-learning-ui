@@ -14,6 +14,7 @@ import { CircleUser, Menu } from "lucide-react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import useSignOut from "react-auth-kit/hooks/useSignOut";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { BreadcrumbDemo } from "@/components/BreadCrumb";
 
 export interface User {
   name: string;
@@ -83,6 +84,7 @@ const Lyout = () => {
           </DropdownMenu>
         </header>
         <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6 bg-zinc-100 dark:bg-black">
+          <BreadcrumbDemo />
           <Outlet />
         </main>
       </div>
