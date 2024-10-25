@@ -1,5 +1,5 @@
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -30,7 +30,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const Chart = () => {
+const ChartProgressPerCours = ({ idEtud }: { idEtud: number }) => {
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [matieres, setMatieres] = useState<MatiereDTO[]>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
@@ -48,7 +48,7 @@ const Chart = () => {
   };
 
   const getProgressPerCours = async (id: number) => {
-    await api.statistiqueRestApi.getProgressPerCours(id).then(
+    await api.userRestApi.getEtudiantProgressParCours(idEtud, id).then(
       (response) => {
         const chartData: ChartData[] = response.data.map((p) => ({
           cours: p.cours?.titre || "",
@@ -77,10 +77,6 @@ const Chart = () => {
   return (
     <Card className="p-1 h-full">
       <CardHeader className="flex flex-row justify-between gap-2">
-        <div className="w-2/3">
-          <CardTitle className="">Progrès par cours</CardTitle>
-        </div>
-
         <Select
           onValueChange={(e) => {
             getProgressPerCours(Number(e));
@@ -123,4 +119,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default ChartProgressPerCours;

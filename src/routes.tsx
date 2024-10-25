@@ -11,6 +11,8 @@ import RequireAuth from "@auth-kit/react-router/RequireAuth";
 import AdminMatieres from "./pages/admin/Matieres/AdminMatieres";
 import AdminCours from "./pages/admin/Cours/AdminCours";
 import AdminCour from "./pages/admin/Chapitres/AdminCour";
+import Etudiants from "./pages/admin/Etudiants/Etudiants";
+import EtudiantDetails from "./pages/admin/Etudiants/EtudiantDetails";
 
 const router = createBrowserRouter([
   { path: "/register", element: <Register /> },
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
       { path: "/admin/matieres", element: <AdminMatieres /> },
       { path: "/admin/cours", element: <AdminCours /> },
       { path: "/admin/chapitres", element: <AdminCour /> },
+      { path: "/admin/etudiants", element: <Etudiants /> },
+      { path: "/admin/etudiants/:id", element: <EtudiantDetails /> },
     ],
   },
 ]);

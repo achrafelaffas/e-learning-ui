@@ -31,7 +31,6 @@ function AdminMatieres() {
   return (
     <>
       <main>
-        
         {isLoading ? (
           <div>Loading...</div>
         ) : error ? (

@@ -8,6 +8,7 @@ import {
   QuestionRestApi,
   FileRestApi,
   StatistiqueRestApi,
+  UsersRestApi,
 } from "@/api";
 import useAuthHeader from "react-auth-kit/hooks/useAuthHeader";
 import { useMemo } from "react";
@@ -28,10 +29,8 @@ const useApi = () => {
   const reponseRestApi = useMemo(() => new ReponseRestApi(config), [config]);
   const questionRestApi = useMemo(() => new QuestionRestApi(config), [config]);
   const fileRestApi = useMemo(() => new FileRestApi(config), [config]);
-  const statistiqueRestApi = useMemo(
-    () => new StatistiqueRestApi(config),
-    [config]
-  );
+  const statistiqueRestApi = useMemo(() => new StatistiqueRestApi(config),[config]);
+  const userRestApi = useMemo(() => new UsersRestApi(config), [config]);
 
   return {
     matiereApi,
@@ -41,7 +40,8 @@ const useApi = () => {
     reponseRestApi,
     questionRestApi,
     fileRestApi,
-    statistiqueRestApi
+    statistiqueRestApi,
+    userRestApi
   };
 };
 

@@ -4890,11 +4890,200 @@ export const UsersRestApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantCompletedCoursCount: async (idEtudiant: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idEtudiant' is not null or undefined
+            assertParamExists('etudiantCompletedCoursCount', 'idEtudiant', idEtudiant)
+            const localVarPath = `/utilisateurs/completedCoursCount/{idEtudiant}`
+                .replace(`{${"idEtudiant"}}`, encodeURIComponent(String(idEtudiant)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantCompletedMatiereCount: async (idEtudiant: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idEtudiant' is not null or undefined
+            assertParamExists('etudiantCompletedMatiereCount', 'idEtudiant', idEtudiant)
+            const localVarPath = `/utilisateurs/completedMatiereCount/{idEtudiant}`
+                .replace(`{${"idEtudiant"}}`, encodeURIComponent(String(idEtudiant)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantCountCompletedChapitres: async (idEtudiant: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'idEtudiant' is not null or undefined
+            assertParamExists('etudiantCountCompletedChapitres', 'idEtudiant', idEtudiant)
+            const localVarPath = `/utilisateurs/countCompletedChapitres/{idEtudiant}`
+                .replace(`{${"idEtudiant"}}`, encodeURIComponent(String(idEtudiant)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} etudiantId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantProgressPerMatiere: async (etudiantId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'etudiantId' is not null or undefined
+            assertParamExists('etudiantProgressPerMatiere', 'etudiantId', etudiantId)
+            const localVarPath = `/utilisateurs/getProgressPerMatiere/{etudiantId}`
+                .replace(`{${"etudiantId"}}`, encodeURIComponent(String(etudiantId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getAllUsers: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/utilisateurs`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} etudiantId 
+         * @param {number} matId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEtudiantProgressParCours: async (etudiantId: number, matId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'etudiantId' is not null or undefined
+            assertParamExists('getEtudiantProgressParCours', 'etudiantId', etudiantId)
+            // verify required parameter 'matId' is not null or undefined
+            assertParamExists('getEtudiantProgressParCours', 'matId', matId)
+            const localVarPath = `/utilisateurs/getEtudiantProgressParCours/{etudiantId}/{matId}`
+                .replace(`{${"etudiantId"}}`, encodeURIComponent(String(etudiantId)))
+                .replace(`{${"matId"}}`, encodeURIComponent(String(matId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -5037,6 +5226,54 @@ export const UsersRestApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async etudiantCompletedCoursCount(idEtudiant: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.etudiantCompletedCoursCount(idEtudiant, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.etudiantCompletedCoursCount']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async etudiantCompletedMatiereCount(idEtudiant: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.etudiantCompletedMatiereCount(idEtudiant, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.etudiantCompletedMatiereCount']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async etudiantCountCompletedChapitres(idEtudiant: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.etudiantCountCompletedChapitres(idEtudiant, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.etudiantCountCompletedChapitres']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} etudiantId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async etudiantProgressPerMatiere(etudiantId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProgressPerMatiere>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.etudiantProgressPerMatiere(etudiantId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.etudiantProgressPerMatiere']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -5044,6 +5281,19 @@ export const UsersRestApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUsers(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UsersRestApi.getAllUsers']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {number} etudiantId 
+         * @param {number} matId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEtudiantProgressParCours(etudiantId: number, matId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProgressPerCoursDTO>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEtudiantProgressParCours(etudiantId, matId, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UsersRestApi.getEtudiantProgressParCours']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -5101,11 +5351,57 @@ export const UsersRestApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantCompletedCoursCount(idEtudiant: number, options?: RawAxiosRequestConfig): AxiosPromise<number> {
+            return localVarFp.etudiantCompletedCoursCount(idEtudiant, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantCompletedMatiereCount(idEtudiant: number, options?: RawAxiosRequestConfig): AxiosPromise<number> {
+            return localVarFp.etudiantCompletedMatiereCount(idEtudiant, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} idEtudiant 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantCountCompletedChapitres(idEtudiant: number, options?: RawAxiosRequestConfig): AxiosPromise<number> {
+            return localVarFp.etudiantCountCompletedChapitres(idEtudiant, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} etudiantId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        etudiantProgressPerMatiere(etudiantId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ProgressPerMatiere>> {
+            return localVarFp.etudiantProgressPerMatiere(etudiantId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getAllUsers(options?: RawAxiosRequestConfig): AxiosPromise<Array<UserDTO>> {
             return localVarFp.getAllUsers(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} etudiantId 
+         * @param {number} matId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEtudiantProgressParCours(etudiantId: number, matId: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<ProgressPerCoursDTO>> {
+            return localVarFp.getEtudiantProgressParCours(etudiantId, matId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -5160,12 +5456,68 @@ export class UsersRestApi extends BaseAPI {
 
     /**
      * 
+     * @param {number} idEtudiant 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersRestApi
+     */
+    public etudiantCompletedCoursCount(idEtudiant: number, options?: RawAxiosRequestConfig) {
+        return UsersRestApiFp(this.configuration).etudiantCompletedCoursCount(idEtudiant, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} idEtudiant 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersRestApi
+     */
+    public etudiantCompletedMatiereCount(idEtudiant: number, options?: RawAxiosRequestConfig) {
+        return UsersRestApiFp(this.configuration).etudiantCompletedMatiereCount(idEtudiant, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} idEtudiant 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersRestApi
+     */
+    public etudiantCountCompletedChapitres(idEtudiant: number, options?: RawAxiosRequestConfig) {
+        return UsersRestApiFp(this.configuration).etudiantCountCompletedChapitres(idEtudiant, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} etudiantId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersRestApi
+     */
+    public etudiantProgressPerMatiere(etudiantId: number, options?: RawAxiosRequestConfig) {
+        return UsersRestApiFp(this.configuration).etudiantProgressPerMatiere(etudiantId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof UsersRestApi
      */
     public getAllUsers(options?: RawAxiosRequestConfig) {
         return UsersRestApiFp(this.configuration).getAllUsers(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {number} etudiantId 
+     * @param {number} matId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UsersRestApi
+     */
+    public getEtudiantProgressParCours(etudiantId: number, matId: number, options?: RawAxiosRequestConfig) {
+        return UsersRestApiFp(this.configuration).getEtudiantProgressParCours(etudiantId, matId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
