@@ -3,6 +3,7 @@ import {
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbPage,
+  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -27,10 +28,16 @@ export function BreadcrumbDemo() {
       <BreadcrumbList>
         <BreadcrumbItem onClick={() => navigate(-1)} className="cursor-pointer">
           {firstSegment && firstSegment == "/matieres" ? (
-            <BreadcrumbPage>matieres</BreadcrumbPage>
+            <BreadcrumbPage>Matieres</BreadcrumbPage>
           ) : (
-            <span>matieres</span>
+            <span>Matieres</span>
           )}
+        </BreadcrumbItem>
+        <BreadcrumbSeparator/>
+        <BreadcrumbItem className="cursor-pointer">
+          
+            <span>Cours</span>
+          
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

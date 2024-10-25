@@ -58,6 +58,7 @@ function AddCour({ matiere, setCours }: AddCourProps) {
                             </DialogDescription>
                         </DialogHeader>
                         <AddCourForm
+                            matiere={matiere}
                             newCour={newCour}
                             setNewCour={setNewCour}
                             setCours={setCours}
@@ -76,6 +77,7 @@ function AddCour({ matiere, setCours }: AddCourProps) {
                             </DrawerDescription>
                         </DrawerHeader>
                         <AddCourForm
+                            matiere={matiere}
                             newCour={newCour}
                             setNewCour={setNewCour}
                             setCours={setCours}
@@ -95,12 +97,14 @@ function AddCour({ matiere, setCours }: AddCourProps) {
 }
 
 function AddCourForm({
+    matiere,
     newCour,
     setNewCour,
     setCours,
     setOpen,
     handleInputChange,
 }: {
+    matiere: MatiereDTO;
     newCour: CoursDTO | undefined;
     setNewCour: React.Dispatch<React.SetStateAction<CoursDTO | undefined>>;
     setCours: React.Dispatch<React.SetStateAction<CoursDTO[]>>;
@@ -122,6 +126,10 @@ function AddCourForm({
             const createdCour = reponse.data;
             setCours((prevCours) => [...prevCours, createdCour]);
             setNewCour({} as CoursDTO);
+            setNewCour((prevCour) => ({
+                ...prevCour,
+                matiere: matiere,
+            }));
             setOpen(false);
         } catch (error) {
             console.error("Error creating cour:", error);

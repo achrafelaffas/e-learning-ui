@@ -42,10 +42,24 @@ function VideoAdd({ chapitre, setChapitre, setChapitres }: VideoProps) {
     }));
   };
 
+  // const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const target = e.target as HTMLInputElement & { files: FileList };
+  //   setSelectedVideo(target.files?.[0] || null); // Use files[0] for the first file
+  // };
+
   const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement & { files: FileList };
-    setSelectedVideo(target.files?.[0] || null); // Use files[0] for the first file
+    const fichier = target.files?.[0] || null; // Récupère le premier fichier sélectionné
+    const tailleMax = 20 * 1024 * 1024; // 20 Mo en octets
+  
+    if (fichier && fichier.size > tailleMax) {
+      alert("La vidéo sélectionnée dépasse la taille maximale de 20 Mo. Veuillez choisir un fichier plus petit.");
+      e.target.value = ""; // Réinitialise le champ de saisie
+    } else {
+      setSelectedVideo(fichier); // Met à jour l'état avec la vidéo sélectionnée si elle est valide
+    }
   };
+  
 
   return (
     <>

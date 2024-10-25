@@ -74,6 +74,7 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
               </DialogDescription>
             </DialogHeader>
             <ChapitreForm
+              cour={cour}
               newChapitre={newChapitre}
               setNewChapitre={setNewChapitre}
               setChapitres={setChapitres}
@@ -93,6 +94,7 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
               </DrawerDescription>
             </DrawerHeader>
             <ChapitreForm
+              cour={cour}
               newChapitre={newChapitre}
               setNewChapitre={setNewChapitre}
               setChapitres={setChapitres}
@@ -112,12 +114,14 @@ function ChapitreAdd({ cour, setChapitres }: ChapitreProps) {
 }
 
 function ChapitreForm({
+  cour,
   newChapitre,
   setNewChapitre,
   setChapitres,
   setOpen,
   handleInputChange,
 }: {
+  cour : CoursDTO;
   newChapitre: ChapitreDTO;
   setNewChapitre: React.Dispatch<React.SetStateAction<ChapitreDTO>>;
   setChapitres: React.Dispatch<React.SetStateAction<ChapitreDTO[]>>;
@@ -144,6 +148,10 @@ function ChapitreForm({
         const createdChapitre = reponse.data;
         setChapitres((prevChapitre) => [...prevChapitre, createdChapitre]);
         setNewChapitre({} as ChapitreDTO);
+        setNewChapitre((prevChapitre) => ({
+          ...prevChapitre,
+          cours: cour,
+        }));
         setOpen(false);
       } catch (error) {
         console.error("Error creating chapitre:", error);

@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MatiereDTO } from "@/api";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -69,9 +69,9 @@ export function MatiereCards({ matieres, setMatieres }: MatiereCardsProps) {
           matieres?.map((matiere, index) => (
             <div key={index} className="w-full h-full flex flex-col">
               <Card className="cursor-pointer">
-                <CardHeader className="flex flex-row justify-between items-center">
-                  <CardTitle>{matiere.nom}</CardTitle>
-                  <div>
+                <CardHeader>
+                  <div className="flex flex-row justify-between">
+                    <CardTitle>{matiere.nom}</CardTitle>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button
@@ -101,6 +101,7 @@ export function MatiereCards({ matieres, setMatieres }: MatiereCardsProps) {
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
+                  <CardDescription>{matiere.description}</CardDescription>
                 </CardHeader>
                 <CardContent
                   className="w-full h-40 overflow-hidden"

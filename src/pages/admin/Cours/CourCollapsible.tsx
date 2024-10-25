@@ -88,7 +88,7 @@ export default function CourCollapsible({
 
         <CollapsibleContent className="space-y-2">
           {cours.map((cour) => (
-              <div key={cour.id} className="grid grid-cols-[auto_max-content] rounded-md border px-4 py-2 font-mono text-sm shadow-sm">
+              <div key={cour.id} className="grid grid-cols-[auto_max-content] rounded-md border px-4 py-2 shadow-sm bg-primary text-white">
                 <Button
                   variant="ghost"
                   className="w-full h-fit"

@@ -101,11 +101,14 @@ function AdminCour() {
           {isQuizSelected ? (
             <Quiz quiz={quiz} cour={cour} setQuiz={setQuiz} />
           ) : (
-            <Video_Pdf
-              setChapitres={setChapitres}
-              setSelectedChapitre={setSelectedChapitre}
-              selectedChapitre={selectedChapitre}
-            />
+            chapitres.length > 0 && (
+                <Video_Pdf
+                setChapitres={setChapitres}
+                setSelectedChapitre={setSelectedChapitre}
+                selectedChapitre={selectedChapitre}
+              />
+            )
+            
           )}
         </div>
         <div className="md:w-1/3 w-full">

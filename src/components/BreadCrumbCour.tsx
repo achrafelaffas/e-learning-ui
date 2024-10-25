@@ -31,7 +31,7 @@ export function BreadcrumbDemo() {
           {firstSegment && firstSegment == "/matieres" ? (
             <BreadcrumbPage>matieres</BreadcrumbPage>
           ) : (
-            <span>matieres</span>
+            <span>Matieres</span>
           )}
         </BreadcrumbItem>
         <BreadcrumbSeparator />
@@ -40,8 +40,14 @@ export function BreadcrumbDemo() {
           {firstSegment && firstSegment == "/cours" ? (
             <BreadcrumbPage>cours</BreadcrumbPage>
           ) : (
-            <span>cours</span>
+            <span>Cours</span>
           )}
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+
+        <BreadcrumbItem className="cursor-pointer">
+            <span>Chapitres</span>
+          
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
