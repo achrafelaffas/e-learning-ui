@@ -1,4 +1,3 @@
-import { GearIcon } from "@radix-ui/react-icons";
 import { BookCopy, FileChartPie } from "lucide-react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 import { Link, useNavigate } from "react-router-dom";
@@ -52,7 +51,7 @@ const Navbar = () => {
             to="/admin/matieres"
             className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
           >
-            <GearIcon className="h-5 w-5" />
+            <BookCopy className="h-5 w-5" />
             Matieres
           </Link>
         </>
