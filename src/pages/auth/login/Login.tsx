@@ -22,6 +22,7 @@ import z from "zod";
 import { AuthRestApi, AuthResponseDTO } from "@/api";
 import Spinner from "@/components/ui/spinner";
 import useSignIn from "react-auth-kit/hooks/useSignIn";
+import { useState } from "react";
 
 const AuthRequestSchema = z.object({
   email: z.string().email({ message: "Invalid email" }),
@@ -32,6 +33,7 @@ const Login = () => {
   const signIn = useSignIn();
   const navigate = useNavigate();
   const auth = new AuthRestApi();
+  const [error, setError] = useState("");
   const form = useForm<z.infer<typeof AuthRequestSchema>>({
     resolver: zodResolver(AuthRequestSchema),
     defaultValues: {
@@ -69,7 +71,7 @@ const Login = () => {
           navigate("/matieres");
         }
       },
-      (error) => console.error(error)
+      () => setError("Votre email ou mot de passe est incorrect.")
     );
   };
 
@@ -83,6 +85,7 @@ const Login = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {error && <p className="text-red-500 pb-2 text-sm">{error}</p>}
           <div>
             <Form {...form}>
               <form
