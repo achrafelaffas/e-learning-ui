@@ -4461,6 +4461,39 @@ export const StatistiqueRestApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        allMatieresCount: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/statistiques/allMatieresCount`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         completedCoursCount: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/statistiques/completedCoursCount`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -4625,6 +4658,39 @@ export const StatistiqueRestApiAxiosParamCreator = function (configuration?: Con
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        studentsSignedInLastWeek: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/statistiques/studentsSignedInLastWeek`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication BearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -4635,6 +4701,17 @@ export const StatistiqueRestApiAxiosParamCreator = function (configuration?: Con
 export const StatistiqueRestApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = StatistiqueRestApiAxiosParamCreator(configuration)
     return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async allMatieresCount(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.allMatieresCount(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StatistiqueRestApi.allMatieresCount']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
         /**
          * 
          * @param {*} [options] Override http request option.
@@ -4691,6 +4768,17 @@ export const StatistiqueRestApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['StatistiqueRestApi.getProgressPerMatiere']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async studentsSignedInLastWeek(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.studentsSignedInLastWeek(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['StatistiqueRestApi.studentsSignedInLastWeek']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -4701,6 +4789,14 @@ export const StatistiqueRestApiFp = function(configuration?: Configuration) {
 export const StatistiqueRestApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = StatistiqueRestApiFp(configuration)
     return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        allMatieresCount(options?: RawAxiosRequestConfig): AxiosPromise<number> {
+            return localVarFp.allMatieresCount(options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @param {*} [options] Override http request option.
@@ -4742,6 +4838,14 @@ export const StatistiqueRestApiFactory = function (configuration?: Configuration
         getProgressPerMatiere(options?: RawAxiosRequestConfig): AxiosPromise<Array<ProgressPerMatiere>> {
             return localVarFp.getProgressPerMatiere(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        studentsSignedInLastWeek(options?: RawAxiosRequestConfig): AxiosPromise<number> {
+            return localVarFp.studentsSignedInLastWeek(options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -4752,6 +4856,16 @@ export const StatistiqueRestApiFactory = function (configuration?: Configuration
  * @extends {BaseAPI}
  */
 export class StatistiqueRestApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatistiqueRestApi
+     */
+    public allMatieresCount(options?: RawAxiosRequestConfig) {
+        return StatistiqueRestApiFp(this.configuration).allMatieresCount(options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {*} [options] Override http request option.
@@ -4801,6 +4915,16 @@ export class StatistiqueRestApi extends BaseAPI {
      */
     public getProgressPerMatiere(options?: RawAxiosRequestConfig) {
         return StatistiqueRestApiFp(this.configuration).getProgressPerMatiere(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StatistiqueRestApi
+     */
+    public studentsSignedInLastWeek(options?: RawAxiosRequestConfig) {
+        return StatistiqueRestApiFp(this.configuration).studentsSignedInLastWeek(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

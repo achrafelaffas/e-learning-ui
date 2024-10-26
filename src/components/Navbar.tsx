@@ -1,6 +1,6 @@
 import { BookCopy, FileChartPie, Users } from "lucide-react";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 interface AuthUser {
@@ -13,12 +13,15 @@ interface AuthUser {
 const Navbar = () => {
   const user = useAuthUser<AuthUser>();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!user?.isAdmin) {
+    const isAdminPath = location.pathname.startsWith("/admin");
+
+    if (!user?.isAdmin && isAdminPath) {
       navigate("/", { replace: true });
     }
-    if (user?.isAdmin) {
+    if (user?.isAdmin && !isAdminPath) {
       navigate("/admin", { replace: true });
     }
   }, []);
